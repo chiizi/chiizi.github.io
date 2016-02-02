@@ -46,7 +46,7 @@ var newWindow = (options) => {
     var elem = document.createElement("div");
     elem.classList.add("win");
     elem.classList.add("initial-size");
-    elem.id = `#win-${id}`;
+    elem.id = `win-${id}`;
     elem.innerHTML = `<div class="wintop" title="${title}">
   <div class="left">${topButtons.left.map(s => `<div class="icon ${s}"></div>`).join("")}</div><div class="right">${topButtons.right.map(s => `<div class="icon ${s}"></div>`).join("")}</div>
 </div>`;
