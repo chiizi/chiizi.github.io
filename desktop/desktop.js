@@ -46,7 +46,7 @@ var newWindow = (options) => {
     var elem = document.createElement("div");
     elem.classList.add("win");
     elem.classList.add("initial-size");
-    elem.id = id;
+    elem.id = `#win-${id}`;
     elem.innerHTML = `<div class="wintop" title="${title}">
   <div class="left">${topButtons.left.map(s => `<div class="icon ${s}"></div>`).join("")}</div><div class="right">${topButtons.right.map(s => `<div class="icon ${s}"></div>`).join("")}</div>
 </div>`;
@@ -60,15 +60,16 @@ var newWindow = (options) => {
     trayListing.classList.add("tray-listing");
     $(".side-tray").appendChild(trayListing);
     trayListing.querySelector(".close").addEventListener("click", close);
-    trayListing.addEventListener("click", () =>
-      (elem.classList.remove("hidden"), $(".window-layer").removeChild(elem), $(".window-layer").appendChild(elem)));
+    trayListing.addEventListener("click", toTop);
     $(".window-layer").appendChild(elem);
     (elem.querySelector(".close") ||  {addEventListener: () => null}).addEventListener("click", close);
     elem.addEventListener("mousedown", () =>
-      ($(".window-layer").removeChild($(`#${id}`)), $(".window-layer").appendChild(elem)));
+      ($(".window-layer").removeChild($(`#win-${id}`)), $(".window-layer").appendChild(elem)));
     
+    var toTop = () =>
+      (elem.classList.remove("hidden"), $(".window-layer").removeChild($(`#win-${id}`)), $(".window-layer").appendChild(elem));
     var close = () =>
-      ($(".window-layer").removeChild(elem), $(".side-tray").removeChild(`#tray-${id}`));
+      ($(".window-layer").removeChild($(`#win-${id}`)), $(".side-tray").removeChild(`#tray-${id}`));
     
     return elem;
   }
