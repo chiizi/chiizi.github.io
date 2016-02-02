@@ -68,7 +68,7 @@ var newWindow = (options) => {
     
     var toTop = () =>
       (elem.classList.remove("hidden"), $(".window-layer").removeChild($(`#win-${id}`)), $(".window-layer").appendChild(elem));
-    var close window.close = () =>
+    var close = window.closeTopWin = () =>
       ($(".window-layer").removeChild($(`#win-${id}`)), $(".side-tray").removeChild(`#tray-${id}`));
     
     return elem;
