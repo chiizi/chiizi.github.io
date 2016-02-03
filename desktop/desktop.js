@@ -59,7 +59,7 @@ var newWindow = (options) => {
     trayListing.innerHTML = `<div class="icon close"></div> <span class="name">${title} (${id})</span>`;
     trayListing.classList.add("tray-listing");
     $(".side-tray").appendChild(trayListing);
-    trayListing.querySelector(".close").addEventListener("click", () => close());
+    trayListing.querySelector(".close").addEventListener("mouseup", () => close());
     trayListing.addEventListener("click", toTop);
     $(".window-layer").appendChild(elem);
     if (elem.querySelector(".close"))
