@@ -103,8 +103,8 @@ var newWindow = (options) => {
     if (elem.querySelector(".close"))
       elem.querySelector(".close").addEventListener("click", close);
     
-    trayListing.addEventListener("click", toTop);
     trayListing.querySelector(".close").addEventListener("click", close);
+    trayListing.addEventListener("click", toTop);
     
     return elem;
   }
