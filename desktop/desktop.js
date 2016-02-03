@@ -43,7 +43,7 @@ var newWindow = (options) => {
           : ["hide", "max", "close"])
     }
     
-    var elem window.topElem = document.createElement("div");
+    var elem = window.topElem = document.createElement("div");
     elem.classList.add("win");
     elem.classList.add("initial-size");
     elem.id = `win-${id}`;
