@@ -60,7 +60,7 @@ var newWindow = (options) => {
     trayListing.classList.add("tray-listing");
     $(".side-tray").appendChild(trayListing);
     trayListing.querySelector(".close").addEventListener("mouseup", () => close());
-    trayListing.addEventListener("click", toTop);
+    trayListing.addEventListener("mouseup", toTop);
     $(".window-layer").appendChild(elem);
     if (elem.querySelector(".close"))
       elem.querySelector(".close").addEventListener("mouseup", () => close());
