@@ -34,7 +34,7 @@ var newWindow = (options) => {
     elem.innerHTML = `<div class="wintop" title="${title}">
   <div class="left">${topButtons.left.map(s => `<div class="icon ${s}"></div>`).join("")}</div><div class="right">${topButtons.right.map(s => `<div class="icon ${s}"></div>`).join("")}</div>
 </div>
-<div class="content"></div>"`;
+<div class="content"></div>`;
     $(".window-layer").appendChild(elem);
     
     var trayListing = document.createElement("div");
