@@ -83,8 +83,10 @@ var newWindow = (options) => {
       } else {
         log();
         elem.classList.add("maximized");
-        elem.style.width = innerWidth;
-        elem.style.height = innerHeight - 49;
+        elem.style.top = `0`;
+        elem.style.left = `0`;
+        elem.style.width = innerWidth - 1;
+        elem.style.height = innerHeight - 50;
       }
     };
       
