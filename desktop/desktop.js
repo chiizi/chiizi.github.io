@@ -59,13 +59,12 @@ var newWindow = (options) => {
     trayListing.innerHTML = `<div class="icon close"></div> <span class="name">${title} (${id})</span>`;
     trayListing.classList.add("tray-listing");
     $(".side-tray").appendChild(trayListing);
-    trayListing.querySelector(".close").addEventListener("click", () => close(), true);
+    trayListing.querySelector(".close").addEventListener("click", close, false);
     trayListing.addEventListener("click", toTop, true);
     $(".window-layer").appendChild(elem);
     if (elem.querySelector(".close"))
-      elem.querySelector(".close").addEventListener("click", () => close(), true);
-    elem.addEventListener("mousedown", () =>
-      toTop, false);
+      elem.querySelector(".close").addEventListener("click", close, false);
+    elem.addEventListener("mousedown", toTop, true);
     
     var toTop = () =>
       (elem.classList.remove("hidden"), $(".window-layer").appendChild(elem));
