@@ -50,25 +50,25 @@ var newWindow = (options) => {
     elem.innerHTML = `<div class="wintop" title="${title}">
   <div class="left">${topButtons.left.map(s => `<div class="icon ${s}"></div>`).join("")}</div><div class="right">${topButtons.right.map(s => `<div class="icon ${s}"></div>`).join("")}</div>
 </div>`;
-    elem.querySelector(".wintop").addEventListener("mousedown", md, false);
-    elem.querySelector(".hide").addEventListener("mouseup", () =>
-      elem.classList.add("hidden"), false)
+    elem.querySelector(".wintop").addEventListener("mousedown", md, true);
+    elem.querySelector(".hide").addEventListener("click", () =>
+      elem.classList.add("hidden"), true)
     
     var trayListing = document.createElement("div");
     trayListing.id = `tray-${id}`;
     trayListing.innerHTML = `<div class="icon close"></div> <span class="name">${title} (${id})</span>`;
     trayListing.classList.add("tray-listing");
     $(".side-tray").appendChild(trayListing);
-    trayListing.querySelector(".close").addEventListener("mouseup", () => close());
-    trayListing.addEventListener("mouseup", toTop);
+    trayListing.querySelector(".close").addEventListener("click", () => close());
+    trayListing.addEventListener("click", toTop, false);
     $(".window-layer").appendChild(elem);
     if (elem.querySelector(".close"))
-      elem.querySelector(".close").addEventListener("mouseup", () => close());
+      elem.querySelector(".close").addEventListener("click", () => close(), true);
     elem.addEventListener("mousedown", () =>
-      ($(".window-layer").removeChild($(`#win-${id}`)), $(".window-layer").appendChild(elem)));
+      $(".window-layer").appendChild(elem), false);
     
     var toTop = () =>
-      (elem.classList.remove("hidden"), $(".window-layer").removeChild($(`#win-${id}`)), $(".window-layer").appendChild(elem));
+      (elem.classList.remove("hidden"), $(".window-layer").appendChild(elem));
     var close = window.closeTopWin = () =>
       ($(".window-layer").removeChild($(`#win-${id}`)), $(".side-tray").removeChild($(`#tray-${id}`)));
     
