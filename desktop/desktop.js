@@ -60,10 +60,14 @@ var newWindow = (options) => {
     var offX;
     var offY;
     
+    var x;
+    var y;
     var w;
     var h;
     
     var log = () => {
+      x = elem.clientX;
+      y = elem.clientY;
       w = elem.clientWidth;
       h = elem.clientHeight;
     }
@@ -77,8 +81,8 @@ var newWindow = (options) => {
       } else {
         log();
         elem.classList.add("maximized");
-        elem.style.top = "0";
-        elem.style.left = "0";
+        elem.style.top = `${y}px`;
+        elem.style.left = `${x}px`;
         elem.style.width = innerWidth;
         elem.style.height = innerHeight - 49;
       }
