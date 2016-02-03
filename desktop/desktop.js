@@ -50,27 +50,52 @@ var newWindow = (options) => {
       window.removeEventListener("mousemove", mm, true);
     };
     var mm = e => {
+      if (elem.classList.contains("maximized"))
+        maximize();
       if (e.clientX >= 0 && e.clientY >= 0 && e.clientX < innerWidth && e.clientY < innerHeight - 49) {
-        elem.style.left = (e.clientX - offX) + "px";
-        elem.style.top = (e.clientY - offY) + "px";
+        elem.style.left = xval = (e.clientX - offX) + "px";
+        elem.style.top = xval = (e.clientY - offY) + "px";
       }
     };
     var offX;
     var offY;
     
+    var w;
+    var h;
+    
+    var log = () => {
+      w = elem.clientWidth;
+      h = elem.clientHeight;
+    }
     var toTop = () =>
       (elem.classList.remove("hidden"), $(".window-layer").appendChild(elem));
+    var maximize = () => {
+      if (elem.classList.contains("maximized")) {
+        elem.classList.remove("maximized");
+        elem.style.width = w;
+        elem.style.height = h;
+      } else {
+        log();
+        elem.classList.add("maximized");
+      }
+    };
+      
     var close = window.closeTopWin = () =>
       ($(".window-layer").removeChild($(`#win-${id}`)), $(".side-tray").removeChild($(`#tray-${id}`)));
     
-    trayListing.addEventListener("click", toTop, true);
-    elem.addEventListener("mousedown", toTop, false);
+    
+    elem.addEventListener("mousedown", toTop);
     elem.querySelector(".wintop").addEventListener("mousedown", md, true);
-    elem.querySelector(".hide").addEventListener("click", () =>
-      elem.classList.add("hidden"), true);
-    trayListing.querySelector(".close").addEventListener("click", close, false);
+    if (elem.querySelector(".hide"))
+      elem.querySelector(".hide").addEventListener("click", () =>
+        elem.classList.add("hidden"));
+    if (elem.querySelector(".max"))
+      elem.querySelector(".max").addEventListener("click", maximize);
     if (elem.querySelector(".close"))
-      elem.querySelector(".close").addEventListener("click", close, true);
+      elem.querySelector(".close").addEventListener("click", close);
+    
+    trayListing.addEventListener("click", toTop);
+    trayListing.querySelector(".close").addEventListener("click", close);
     
     return elem;
   }
