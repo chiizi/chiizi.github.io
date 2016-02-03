@@ -101,10 +101,10 @@ var newWindow = (options) => {
     if (elem.querySelector(".max"))
       elem.querySelector(".max").addEventListener("click", maximize);
     if (elem.querySelector(".close"))
-      elem.querySelector(".close").addEventListener("click", close);
+      elem.querySelector(".close").addEventListener("mouseup", close);
     
-    trayListing.querySelector(".close").addEventListener("click", close);
     trayListing.addEventListener("click", toTop);
+    trayListing.querySelector(".close").addEventListener("mouseup", close);
     
     return elem;
   }
