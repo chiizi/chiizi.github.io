@@ -63,8 +63,8 @@ var newWindow = (options) => {
     trayListing.addEventListener("click", toTop, true);
     $(".window-layer").appendChild(elem);
     if (elem.querySelector(".close"))
-      elem.querySelector(".close").addEventListener("click", close, false);
-    elem.addEventListener("mousedown", toTop, true);
+      elem.querySelector(".close").addEventListener("click", close, true);
+    elem.addEventListener("mousedown", toTop, false);
     
     var toTop = () =>
       (elem.classList.remove("hidden"), $(".window-layer").appendChild(elem));
