@@ -51,7 +51,7 @@ var newWindow = (options) => {
   <div class="left">${topButtons.left.map(s => `<div class="icon ${s}"></div>`).join("")}</div><div class="right">${topButtons.right.map(s => `<div class="icon ${s}"></div>`).join("")}</div>
 </div>`;
     elem.querySelector(".wintop").addEventListener("mousedown", md, false);
-    elem.querySelector(".hide").addEventListener("click", () =>
+    elem.querySelector(".hide").addEventListener("mouseup", () =>
       elem.classList.add("hidden"), false)
     
     var trayListing = document.createElement("div");
