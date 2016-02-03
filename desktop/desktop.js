@@ -1,5 +1,7 @@
 var $ = q => document.querySelector(q);
 var $$ = q => document.querySelectorAll(q);
+var _$ = e => q => e.querySelector(q);
+var _$$ = e => q => e.querySelectorAll(q);
 
 String.prototype.reverse = function() {
   return this.split("").reverse().join("");
@@ -95,17 +97,17 @@ var newWindow = (options) => {
     
     
     elem.addEventListener("mousedown", toTop);
-    elem.querySelector(".wintop").addEventListener("mousedown", md, true);
-    if (elem.querySelector(".hide"))
-      elem.querySelector(".hide").addEventListener("click", () =>
+    _$(elem)(".wintop").addEventListener("mousedown", md, true);
+    if (_$(elem)(".hide"))
+      _$(elem)(".hide").addEventListener("click", () =>
         elem.classList.add("hidden"));
-    if (elem.querySelector(".max"))
-      elem.querySelector(".max").addEventListener("click", maximize);
-    if (elem.querySelector(".close"))
-      elem.querySelector(".close").addEventListener("mouseup", close);
+    if (_$(elem)(".max"))
+      _$(elem)(".max").addEventListener("click", maximize);
+    if (_$(elem)(".close"))
+      _$(elem)(".close").addEventListener("mouseup", close);
     
     trayListing.addEventListener("click", toTop);
-    trayListing.querySelector(".close").addEventListener("mouseup", close);
+    _$(trayListing)(".close").addEventListener("mouseup", close);
     
     return elem;
   }
@@ -116,4 +118,4 @@ var terminal = newWindow({
   title: "terminal"
 });
 
-terminal
+_$(terminal)(".content").innerHTML = "";
