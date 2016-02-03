@@ -25,7 +25,7 @@ var newWindow = (options) => {
           : ["hide", "max", "close"])
     }
     
-    var elem = window.topElem = document.createElement("div");
+    var elem = document.createElement("div");
     elem.id = `win-${id}`;
     elem.classList.add("win");
     elem.classList.add("initial-size");
@@ -43,18 +43,18 @@ var newWindow = (options) => {
     var md = e => {
       offX = e.clientX - parseInt(elem.offsetLeft);
       offY = e.clientY - parseInt(elem.offsetTop);
-      window.addEventListener("mousemove", mm, true);
-      window.addEventListener("mouseup", mu, true);
+      addEventListener("mousemove", mm, true);
+      addEventListener("mouseup", mu, true);
     };
     var mu = () => {
-      window.removeEventListener("mousemove", mm, true);
+      removeEventListener("mousemove", mm, true);
     };
     var mm = e => {
       if (elem.classList.contains("maximized"))
         maximize();
       if (e.clientX >= 0 && e.clientY >= 0 && e.clientX < innerWidth && e.clientY < innerHeight - 49) {
-        elem.style.left = xval = (e.clientX - offX) + "px";
-        elem.style.top = xval = (e.clientY - offY) + "px";
+        elem.style.left = x = (e.clientX - offX) + "px";
+        elem.style.top = y = (e.clientY - offY) + "px";
       }
     };
     var offX;
@@ -70,14 +70,14 @@ var newWindow = (options) => {
       y = elem.clientY;
       w = elem.clientWidth;
       h = elem.clientHeight;
-    }
+    };
     var toTop = () =>
       (elem.classList.remove("hidden"), $(".window-layer").appendChild(elem));
     var maximize = () => {
       if (elem.classList.contains("maximized")) {
         elem.classList.remove("maximized");
-        elem.style.top = `${y}px`;
         elem.style.left = `${x}px`;
+        elem.style.top = `${y}px`;
         elem.style.width = w;
         elem.style.height = h;
       } else {
@@ -89,8 +89,7 @@ var newWindow = (options) => {
         elem.style.height = innerHeight - 50;
       }
     };
-      
-    var close = window.closeTopWin = () =>
+    var close = () =>
       ($(".window-layer").removeChild($(`#win-${id}`)), $(".side-tray").removeChild($(`#tray-${id}`)));
     
     
