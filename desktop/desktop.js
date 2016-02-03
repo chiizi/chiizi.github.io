@@ -79,6 +79,8 @@ var newWindow = (options) => {
         elem.classList.add("maximized");
         elem.style.top = "0";
         elem.style.left = "0";
+        elem.style.width = innerWidth;
+        elem.style.height = innerHeight - 49;
       }
     };
       
