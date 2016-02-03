@@ -77,6 +77,8 @@ var newWindow = (options) => {
       } else {
         log();
         elem.classList.add("maximized");
+        elem.style.top = "0";
+        elem.style.left = "0";
       }
     };
       
