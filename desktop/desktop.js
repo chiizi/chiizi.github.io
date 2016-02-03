@@ -76,13 +76,13 @@ var newWindow = (options) => {
     var maximize = () => {
       if (elem.classList.contains("maximized")) {
         elem.classList.remove("maximized");
+        elem.style.top = `${y}px`;
+        elem.style.left = `${x}px`;
         elem.style.width = w;
         elem.style.height = h;
       } else {
         log();
         elem.classList.add("maximized");
-        elem.style.top = `${y}px`;
-        elem.style.left = `${x}px`;
         elem.style.width = innerWidth;
         elem.style.height = innerHeight - 49;
       }
