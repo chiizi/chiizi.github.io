@@ -11,6 +11,35 @@ document.documentElement.addEventListener("click", () =>
 var windows = [];
 var newWindow = (options) => {
   with (options) {
+    var mode = options.mode || "elm";
+    var topButtons = {
+      left: (mode == "elm"
+        ? ["hide"]
+        : mode == "osx"
+          ? ["close", "max", "hide"]
+          : []),
+      right: (mode == "elm"
+        ? ["max"]
+        : mode == "osx"
+          ? []
+          : ["hide", "max", "close"])
+    }
+    
+    var elem = window.topElem = document.createElement("div");
+    elem.id = `win-${id}`;
+    elem.classList.add("win");
+    elem.classList.add("initial-size");
+    elem.innerHTML = `<div class="wintop" title="${title}">
+  <div class="left">${topButtons.left.map(s => `<div class="icon ${s}"></div>`).join("")}</div><div class="right">${topButtons.right.map(s => `<div class="icon ${s}"></div>`).join("")}</div>
+</div>`;
+    $(".window-layer").appendChild(elem);
+    
+    var trayListing = document.createElement("div");
+    trayListing.id = `tray-${id}`;
+    trayListing.classList.add("tray-listing");
+    trayListing.innerHTML = `<div class="icon close"></div> <span class="name">${title} (${id})</span>`;
+    $(".side-tray").appendChild(trayListing);
+    
     var md = e => {
       offX = e.clientX - parseInt(elem.offsetLeft);
       offY = e.clientY - parseInt(elem.offsetTop);
@@ -29,47 +58,19 @@ var newWindow = (options) => {
     var offX;
     var offY;
     
-    var mode = options.mode || "elm";
-    var topButtons = {
-      left: (mode == "elm"
-        ? ["hide"]
-        : mode == "osx"
-          ? ["close", "max", "hide"]
-          : []),
-      right: (mode == "elm"
-        ? ["max"]
-        : mode == "osx"
-          ? []
-          : ["hide", "max", "close"])
-    }
-    
-    var elem = window.topElem = document.createElement("div");
-    elem.classList.add("win");
-    elem.classList.add("initial-size");
-    elem.id = `win-${id}`;
-    elem.innerHTML = `<div class="wintop" title="${title}">
-  <div class="left">${topButtons.left.map(s => `<div class="icon ${s}"></div>`).join("")}</div><div class="right">${topButtons.right.map(s => `<div class="icon ${s}"></div>`).join("")}</div>
-</div>`;
-    elem.querySelector(".wintop").addEventListener("mousedown", md, true);
-    elem.querySelector(".hide").addEventListener("click", () =>
-      elem.classList.add("hidden"), true)
-    
-    var trayListing = document.createElement("div");
-    trayListing.id = `tray-${id}`;
-    trayListing.innerHTML = `<div class="icon close"></div> <span class="name">${title} (${id})</span>`;
-    trayListing.classList.add("tray-listing");
-    $(".side-tray").appendChild(trayListing);
-    trayListing.querySelector(".close").addEventListener("click", close, false);
-    trayListing.addEventListener("click", toTop, true);
-    $(".window-layer").appendChild(elem);
-    if (elem.querySelector(".close"))
-      elem.querySelector(".close").addEventListener("click", close, true);
-    elem.addEventListener("mousedown", toTop, false);
-    
     var toTop = () =>
       (elem.classList.remove("hidden"), $(".window-layer").appendChild(elem));
     var close = window.closeTopWin = () =>
       ($(".window-layer").removeChild($(`#win-${id}`)), $(".side-tray").removeChild($(`#tray-${id}`)));
+    
+    trayListing.addEventListener("click", toTop, true);
+    elem.addEventListener("mousedown", toTop, false);
+    elem.querySelector(".wintop").addEventListener("mousedown", md, true);
+    elem.querySelector(".hide").addEventListener("click", () =>
+      elem.classList.add("hidden"), true);
+    trayListing.querySelector(".close").addEventListener("click", close, false);
+    if (elem.querySelector(".close"))
+      elem.querySelector(".close").addEventListener("click", close, true);
     
     return elem;
   }
