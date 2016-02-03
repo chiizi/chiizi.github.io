@@ -59,17 +59,17 @@ var newWindow = (options) => {
     trayListing.innerHTML = `<div class="icon close"></div> <span class="name">${title} (${id})</span>`;
     trayListing.classList.add("tray-listing");
     $(".side-tray").appendChild(trayListing);
-    trayListing.querySelector(".close").addEventListener("click", close);
+    trayListing.querySelector(".close").addEventListener("click", () => close());
     trayListing.addEventListener("click", toTop);
     $(".window-layer").appendChild(elem);
-    (elem.querySelector(".close") ||  {addEventListener: () => null}).addEventListener("click", close);
+    (elem.querySelector(".close") ||  {addEventListener: () => null}).addEventListener("click", () => close());
     elem.addEventListener("mousedown", () =>
       ($(".window-layer").removeChild($(`#win-${id}`)), $(".window-layer").appendChild(elem)));
     
     var toTop = () =>
       (elem.classList.remove("hidden"), $(".window-layer").removeChild($(`#win-${id}`)), $(".window-layer").appendChild(elem));
     var close = window.closeTopWin = () =>
-      ($(".window-layer").removeChild($(`#win-${id}`)), $(".side-tray").removeChild(`#tray-${id}`));
+      ($(".window-layer").removeChild($(`#win-${id}`)), $(".side-tray").removeChild($(`#tray-${id}`)));
     
     return elem;
   }
