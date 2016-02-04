@@ -120,5 +120,5 @@ var terminal = newWindow({
 
 _$(terminal)(".content").innerHTML = "";
 var addWindow = function(id, title){
-  return windows.push(newWindow({id: id, title: title}));
+  return windows.push(newWindow({id: id, title: title})) - 1;
 }
