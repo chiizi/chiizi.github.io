@@ -140,15 +140,15 @@ var WindowTemp = function(metaOptions) {
         })]
       });
       
-      elem.addEventListener("mousedown", toTop);
+      elem.addEventListener("mousedown", this.toTop);
       _$(elem)(".wintop").addEventListener("mousedown", md, true);
       if (_$(elem)(".hide"))
         _$(elem)(".hide").addEventListener("click", () =>
           elem.classList.add("hidden"));
       if (_$(elem)(".max"))
-        _$(elem)(".max").addEventListener("click", maximize);
+        _$(elem)(".max").addEventListener("click", this.maximize);
       if (_$(elem)(".close"))
-        _$(elem)(".close").addEventListener("mouseup", close);
+        _$(elem)(".close").addEventListener("mouseup", this.close);
       
       this.elem = elem;
       this.trayListing = new TrayListing(this);
