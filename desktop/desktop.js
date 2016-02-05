@@ -142,7 +142,7 @@ var WindowTemp = function(metaOptions) {
         elem.log.h = elem.clientHeight;
       };
       
-      elem.addEventListener("mousedown", this.toTop);
+      elem.addEventListener("mousedown", () => this.toTop.call(this)); // desparate shotgun debugging
       _$(elem)(".wintop").addEventListener("mousedown", md, true);
       if (_$(elem)(".hide"))
         _$(elem)(".hide").addEventListener("click", () =>
