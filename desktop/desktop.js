@@ -29,17 +29,15 @@ var TrayListing = (function() {
           innerHTML: `${win.title} (${win.group}-${win.id})`
         })]
       });
-      elem.addEventListener("click", () => win.toTop.call(win));
-      _$(elem)(".close").addEventListener("mouseup", () => win.close.call(win));
+      elem.addEventListener("click", win.toTop.bind(win));
+      _$(elem)(".close").addEventListener("mouseup", win.close.bind(win));
       this.elem = elem;
     }
-    toBottom(elem) {
-      elem = elem || this.elem;
-      $(".side-tray").appendChild(elem);
+    toBottom() {
+      $(".side-tray").appendChild(this.elem);
     }
-    toTop(elem) {
-      elem = elem || this.elem;
-      $(".side-tray").insertBefore(elem, $(".side-tray").childNodes[0]);
+    toTop() {
+      $(".side-tray").insertBefore(this.elem, $(".side-tray").childNodes[0]);
     }
   };
 })();
@@ -62,8 +60,8 @@ var WindowTemp = function(metaOptions) {
         if (elem.classList.contains("maximized"))
           this.maximize();
         if (e.clientX >= 0 && e.clientY >= 0 && e.clientX < innerWidth && e.clientY < innerHeight - 49) {
-          elem.style.left = elem.log.x = (e.clientX - offX) + "px";
-          elem.style.top = elem.log.y = (e.clientY - offY) + "px";
+          elem.style.left = this.log.x = (e.clientX - offX) + "px";
+          elem.style.top = this.log.y = (e.clientY - offY) + "px";
         }
       };
       var offX;
@@ -135,57 +133,50 @@ var WindowTemp = function(metaOptions) {
         })]
       });
       
-      elem.log = () => {
-        elem.log.x = elem.clientX;
-        elem.log.y = elem.clientY;
-        elem.log.w = elem.clientWidth;
-        elem.log.h = elem.clientHeight;
+      this.log = () => {
+        this.log.x = elem.clientX;
+        this.log.y = elem.clientY;
+        this.log.w = elem.clientWidth;
+        this.log.h = elem.clientHeight;
       };
       
-      elem.addEventListener("mousedown", () => this.toTop(this.elem));
+      elem.addEventListener("mousedown", this.toTop.bind(this));
       _$(elem)(".wintop").addEventListener("mousedown", md, true);
       if (_$(elem)(".hide"))
         _$(elem)(".hide").addEventListener("click", () =>
           elem.classList.add("hidden"));
       if (_$(elem)(".max"))
-        _$(elem)(".max").addEventListener("click", () => this.maximize(this.elem));
+        _$(elem)(".max").addEventListener("click", this.maximize.bind(this));
       if (_$(elem)(".close"))
-        _$(elem)(".close").addEventListener("mouseup", () => this.close(this.elem));
+        _$(elem)(".close").addEventListener("mouseup", this.close.bind(this));
       
       this.elem = elem;
       this.trayListing = new TrayListing(this);
       this.trayListing.toTop();
-      elem.trayListing = this.trayListing;
     }
-    toTop(elem) {
-      console.log(this); // make up your mind, **this**, are you a Window or an element?
-      elem = elem || this.elem;
-      elem.classList.remove("hidden");
+    toTop() {
+      this.elem.classList.remove("hidden");
       $(".window-layer").appendChild(this.elem);
     }
-    maximize(elem) {
-      console.log(this);
-      elem = elem || this.elem;
-      if (elem.classList.contains("maximized")) {
-        elem.classList.remove("maximized");
-        elem.style.left = `${elem.log.x}px`;
-        elem.style.top = `${elem.log.y}px`;
-        elem.style.width = elem.log.w;
-        elem.style.height = elem.log.h;
+    maximize() {
+      if (this.elem.classList.contains("maximized")) {
+        this.elem.classList.remove("maximized");
+        this.elem.style.left = `${this.log.x}px`;
+        this.elem.style.top = `${this.log.y}px`;
+        this.elem.style.width = this.log.w;
+        this.elem.style.height = this.log.h;
       } else {
-        elem.log();
-        elem.classList.add("maximized");
-        elem.style.top = `0`;
-        elem.style.left = `0`;
-        elem.style.width = innerWidth - 1;
-        elem.style.height = innerHeight - 50;
+        this.log();
+        this.elem.classList.add("maximized");
+        this.elem.style.top = `0`;
+        this.elem.style.left = `0`;
+        this.elem.style.width = innerWidth - 1;
+        this.elem.style.height = innerHeight - 50;
       }
     }
-    close(elem) {
-      console.log(this);
-      elem = elem || this.elem;
-      $(".window-layer").removeChild(elem);
-      $(".side-tray").removeChild(elem.trayListing.elem)
+    close() {
+      $(".window-layer").removeChild(this.elem);
+      $(".side-tray").removeChild(this.trayListing.elem)
     }
     get group() {
       return metaOptions.group;
