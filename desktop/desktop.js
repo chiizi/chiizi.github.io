@@ -29,8 +29,8 @@ var TrayListing = (function() {
           innerHTML: `${win.title} (${win.group}-${win.id})`
         })]
       });
-      elem.addEventListener("click", toTop);
-      _$(elem)(".close").addEventListener("mouseup", close);
+      elem.addEventListener("click", win.toTop);
+      _$(elem)(".close").addEventListener("mouseup", win.close);
       this.elem = elem;
     }
     toBottom() {
