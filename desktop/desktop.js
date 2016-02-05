@@ -168,10 +168,10 @@ var WindowTemp = function(metaOptions) {
       elem = elem || this.elem;
       if (elem.classList.contains("maximized")) {
         elem.classList.remove("maximized");
-        elem.style.left = `${this.log.x}px`;
-        elem.style.top = `${this.log.y}px`;
-        elem.style.width = this.log.w;
-        elem.style.height = this.log.h;
+        elem.style.left = `${elem.log.x}px`;
+        elem.style.top = `${elem.log.y}px`;
+        elem.style.width = elem.log.w;
+        elem.style.height = elem.log.h;
       } else {
         elem.log();
         elem.classList.add("maximized");
