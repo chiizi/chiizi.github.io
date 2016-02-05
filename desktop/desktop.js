@@ -29,15 +29,17 @@ var TrayListing = (function() {
           innerHTML: `${win.title} (${win.group}-${win.id})`
         })]
       });
-      elem.addEventListener("click", win.toTop);
-      _$(elem)(".close").addEventListener("mouseup", win.close);
+      elem.addEventListener("click", () => win.toTop.call(win));
+      _$(elem)(".close").addEventListener("mouseup", () => win.close.call(win));
       this.elem = elem;
     }
-    toBottom() {
-      $(".side-tray").appendChild(this.elem);
+    toBottom(elem) {
+      elem = elem || this.elem;
+      $(".side-tray").appendChild(elem);
     }
-    toTop() {
-      $(".side-tray").insertBefore(this.elem, $(".side-tray").childNodes[0]);
+    toTop(elem) {
+      elem = elem || this.elem;
+      $(".side-tray").insertBefore(elem, $(".side-tray").childNodes[0]);
     }
   };
 })();
@@ -58,7 +60,7 @@ var WindowTemp = function(metaOptions) {
       };
       var mm = e => {
         if (elem.classList.contains("maximized"))
-          maximize();
+          this.maximize();
         if (e.clientX >= 0 && e.clientY >= 0 && e.clientX < innerWidth && e.clientY < innerHeight - 49) {
           elem.style.left = elem.log.x = (e.clientX - offX) + "px";
           elem.style.top = elem.log.y = (e.clientY - offY) + "px";
@@ -140,26 +142,29 @@ var WindowTemp = function(metaOptions) {
         elem.log.h = elem.clientHeight;
       };
       
-      elem.addEventListener("mousedown", this.toTop);
+      elem.addEventListener("mousedown", () => this.toTop(this.elem));
       _$(elem)(".wintop").addEventListener("mousedown", md, true);
       if (_$(elem)(".hide"))
         _$(elem)(".hide").addEventListener("click", () =>
           elem.classList.add("hidden"));
       if (_$(elem)(".max"))
-        _$(elem)(".max").addEventListener("click", this.maximize);
+        _$(elem)(".max").addEventListener("click", () => this.maximize(this.elem));
       if (_$(elem)(".close"))
-        _$(elem)(".close").addEventListener("mouseup", this.close);
+        _$(elem)(".close").addEventListener("mouseup", () => this.close(this.elem));
       
       this.elem = elem;
       this.trayListing = new TrayListing(this);
       this.trayListing.toTop();
     }
-    toTop() {
+    toTop(elem) {
       console.log(this); // make up your mind, **this**, are you a Window or an element?
-      this.elem.classList.remove("hidden");
+      elem = elem || this.elem;
+      elem.classList.remove("hidden");
       $(".window-layer").appendChild(this.elem);
     }
-    maximize() {
+    maximize(elem) {
+      console.log(this);
+      elem = elem || this.elem;
       if (this.classList.contains("maximized")) {
         this.classList.remove("maximized");
         this.style.left = `${this.log.x}px`;
@@ -175,7 +180,9 @@ var WindowTemp = function(metaOptions) {
         this.style.height = innerHeight - 50;
       }
     }
-    close() {
+    close(elem) {
+      console.log(this);
+      elem = elem || this.elem;
       $(".window-layer").removeChild(this);
       $(".side-tray").removeChild(this.trayListing.elem)
     }
