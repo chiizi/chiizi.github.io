@@ -199,7 +199,7 @@ var Shell = new WindowTemp({
   mode: "elm.min"
 });
 var Browser = new WindowTemp({
-  group: "vrowser",
+  group: "browser",
   mode: "elm.web"
 });
 
@@ -213,3 +213,4 @@ var mainBrowser = new Browser({
   title: "Vrowser",
   id: "main"
 });
+mainBrowser.toTop();
