@@ -155,6 +155,7 @@ var WindowTemp = function(metaOptions) {
       this.trayListing.toTop();
     }
     toTop() {
+      console.log(this); // make up your mind, **this**, are you a Window or an element?
       this.classList.remove("hidden");
       $(".window-layer").appendChild(this);
     }
