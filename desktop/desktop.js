@@ -102,11 +102,11 @@ var WindowTemp = function(metaOptions) {
                 }), $N("div")({
                   className: "icon max"
                 }), $N("div")({
-                  className: "icon min"
+                  className: "icon hide"
                 })]
                 : mode[1] == "web"
                   ? [$N("div")({
-                    className: "icon min"
+                    className: "icon hide"
                   }), $N("div")({
                     className: "icon reload"
                   }), $N("div")({
@@ -134,7 +134,7 @@ var WindowTemp = function(metaOptions) {
               : mode[0] == "osx"
                 ? []
                 : [$N("div")({
-                  className: "icon min"
+                  className: "icon max"
                 })]
           })]
         })]
@@ -155,6 +155,7 @@ var WindowTemp = function(metaOptions) {
       this.trayListing.toTop();
     }
     toTop() {
+      console.log(this);
       this.elem.classList.remove("hidden");
       $(".window-layer").appendChild(this.elem);
     }
