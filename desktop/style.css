@@ -86,8 +86,6 @@ body {
   overflow: auto;
   position: absolute;
   border: 1px solid #CCC;
-}
-.win.initial-size {
   width: 200px;
   height: 200px;
 }
