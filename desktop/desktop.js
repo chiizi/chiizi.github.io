@@ -67,13 +67,6 @@ var WindowTemp = function(metaOptions) {
       var offX;
       var offY;
       
-      elem.log = () => {
-        elem.log.x = elem.clientX;
-        elem.log.y = elem.clientY;
-        elem.log.w = elem.clientWidth;
-        elem.log.h = elem.clientHeight;
-      };
-      
       this.id = options.id;
       this.title = options.title;
       var elem = $N("div")({
@@ -139,6 +132,13 @@ var WindowTemp = function(metaOptions) {
           })]
         })]
       });
+      
+      elem.log = () => {
+        elem.log.x = elem.clientX;
+        elem.log.y = elem.clientY;
+        elem.log.w = elem.clientWidth;
+        elem.log.h = elem.clientHeight;
+      };
       
       elem.addEventListener("mousedown", this.toTop);
       _$(elem)(".wintop").addEventListener("mousedown", md, true);
