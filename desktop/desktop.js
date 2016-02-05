@@ -155,6 +155,7 @@ var WindowTemp = function(metaOptions) {
       this.elem = elem;
       this.trayListing = new TrayListing(this);
       this.trayListing.toTop();
+      elem.trayListing = this.trayListing;
     }
     toTop(elem) {
       console.log(this); // make up your mind, **this**, are you a Window or an element?
@@ -165,26 +166,26 @@ var WindowTemp = function(metaOptions) {
     maximize(elem) {
       console.log(this);
       elem = elem || this.elem;
-      if (this.classList.contains("maximized")) {
-        this.classList.remove("maximized");
-        this.style.left = `${this.log.x}px`;
-        this.style.top = `${this.log.y}px`;
-        this.style.width = this.log.w;
-        this.style.height = this.log.h;
+      if (elem.classList.contains("maximized")) {
+        elem.classList.remove("maximized");
+        elem.style.left = `${this.log.x}px`;
+        elem.style.top = `${this.log.y}px`;
+        elem.style.width = this.log.w;
+        elem.style.height = this.log.h;
       } else {
-        this.log();
-        this.classList.add("maximized");
-        this.style.top = `0`;
-        this.style.left = `0`;
-        this.style.width = innerWidth - 1;
-        this.style.height = innerHeight - 50;
+        elem.log();
+        elem.classList.add("maximized");
+        elem.style.top = `0`;
+        elem.style.left = `0`;
+        elem.style.width = innerWidth - 1;
+        elem.style.height = innerHeight - 50;
       }
     }
     close(elem) {
       console.log(this);
       elem = elem || this.elem;
-      $(".window-layer").removeChild(this);
-      $(".side-tray").removeChild(this.trayListing.elem)
+      $(".window-layer").removeChild(elem);
+      $(".side-tray").removeChild(elem.trayListing.elem)
     }
     get group() {
       return metaOptions.group;
