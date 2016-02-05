@@ -24,19 +24,19 @@ body {
   background-size: contain;
 }
 .icon.reload {
-  background-image: url("home.svg");
+  background-image: url("circle.svg");
 }
 .icon.hide {
-  background-image: url("hide.svg");
+  background-image: url("dot.svg");
 }
 .icon.max {
-  background-image: url("max.svg");
+  background-image: url("square.svg");
 }
 .maximized .icon.max {
-  background-image: url("demax.svg");
+  background-image: url("squares.svg");
 }
 .icon.close {
-  background-image: url("close.svg");
+  background-image: url("x.svg");
 }
 .icon.home {
   background-image: url("circle.svg");
