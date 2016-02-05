@@ -194,7 +194,22 @@ var WindowGeneric = new WindowTemp({
   group: "generic"
 });
 
-var shell = new WindowTemp({
+var Shell = new WindowTemp({
   group: "shell",
   mode: "elm.min"
+});
+var Browser = new WindowTemp({
+  group: "vrowser",
+  mode: "elm.web"
+});
+
+var mainCL = new Shell({
+  title: "Shell",
+  id: "main"
+});
+mainCL.toTop();
+
+var mainBrowser = new Browser({
+  title: "Vrowser",
+  id: "main"
 });
