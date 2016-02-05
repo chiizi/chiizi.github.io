@@ -156,8 +156,8 @@ var WindowTemp = function(metaOptions) {
     }
     toTop() {
       console.log(this); // make up your mind, **this**, are you a Window or an element?
-      this.classList.remove("hidden");
-      $(".window-layer").appendChild(this);
+      this.elem.classList.remove("hidden");
+      $(".window-layer").appendChild(this.elem);
     }
     maximize() {
       if (this.classList.contains("maximized")) {
