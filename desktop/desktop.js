@@ -47,8 +47,6 @@ var WindowTemp = function(metaOptions) {
   
   var ret = class {
     constructor(options) {
-      setInterval(() => console.log(this), 200); // annoying debug
-      
       var md = e => {
         offX = e.clientX - parseInt(elem.offsetLeft);
         offY = e.clientY - parseInt(elem.offsetTop);
@@ -142,7 +140,7 @@ var WindowTemp = function(metaOptions) {
         elem.log.h = elem.clientHeight;
       };
       
-      elem.addEventListener("mousedown", () => this.toTop.call(this)); // desparate shotgun debugging
+      elem.addEventListener("mousedown", this.toTop);
       _$(elem)(".wintop").addEventListener("mousedown", md, true);
       if (_$(elem)(".hide"))
         _$(elem)(".hide").addEventListener("click", () =>
