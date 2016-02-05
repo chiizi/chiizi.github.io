@@ -47,6 +47,8 @@ var WindowTemp = function(metaOptions) {
   
   var ret = class {
     constructor(options) {
+      setInterval(() => console.log(this), 200); // annoying debug
+      
       var md = e => {
         offX = e.clientX - parseInt(elem.offsetLeft);
         offY = e.clientY - parseInt(elem.offsetTop);
