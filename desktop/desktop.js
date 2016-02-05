@@ -1,3 +1,7 @@
+var div = o => (e => ((o.children !== undefined
+  ? (o.children.map(c => e.appendChild(c)), delete o.children)
+  : null),
+  Object.assign(e, o)))(document.createElement("div"));
 var $ = q => document.querySelector(q);
 var $$ = q => document.querySelectorAll(q);
 var _$ = e => q => e.querySelector(q);
@@ -26,11 +30,6 @@ var newWindow = (options) => {
           ? []
           : ["hide", "max", "close"])
     }
-    
-    var elem = document.createElement("div");
-    elem.id = `win-${id}`;
-    elem.classList.add("win");
-    elem.classList.add("initial-size");
     elem.innerHTML = `<div class="wintop" title="${title}">
   <div class="left">${topButtons.left.map(s => `<div class="icon ${s}"></div>`).join("")}</div><div class="right">${topButtons.right.map(s => `<div class="icon ${s}"></div>`).join("")}</div>
 </div>
@@ -113,12 +112,97 @@ var newWindow = (options) => {
   }
 };
 
-var terminal = newWindow({
-  id: "terminal",
-  title: "terminal"
+var WindowTemp = function(metaOptions) {
+  "use strict";
+  var mode = (metaOptions.mode || "elm.min").split(".");
+  
+  var ret = class {
+    constructor(options) {
+      this.id = metaOptions.group + options.id;
+      var elem = div({
+        children: [div({
+          className: "wintop",
+          title: options.title || "untitled",
+          children: [div({
+            className: "left",
+            children: mode[0] == "win"
+              ? mode[1] == "web"
+                ? [div({
+                  className: "icon reload"
+                }), div({
+                  className: "icon back"
+                })]
+                : mode[1] == "std"
+                  ? [div({
+                    className: "icon reload"
+                  })]
+                  : []
+              : mode[0] == "osx"
+                ? [div({
+                  className: "icon close"
+                }), div({
+                  className: "icon max"
+                }), div({
+                  className: "icon min"
+                })]
+                : mode[1] == "web"
+                  ? [div({
+                    className: "icon min"
+                  }), div({
+                    className: "icon reload"
+                  }), div({
+                    className: "icon back"
+                  })]
+                  : mode[1] == "std"
+                    ? [div({
+                      className: "icon min"
+                    }), div({
+                      className: "icon reload"
+                    })]
+                    : [div({
+                      className: "icon min"
+                    })]
+          }), div({
+            className: "right",
+            children: mode[0] == "win"
+              ? [div({
+                className: "icon min"
+              }), div({
+                className: "icon max"
+              }), div({
+                className: "icon close"
+              })]
+              : mode[0] == "osx"
+                ? []
+                : [div({
+                  className: "icon min"
+                })]
+          })]
+        })] // MARKER - CONTINUE HERE
+      });
+      elem.id = `win-${metaOptions.group}-${id}`;
+      elem.classList.add("win");
+      ;
+    }
+      this.elem = elem;
+    }
+    toTop() {
+      $(".window-layer").appendChild(this.elem);
+    }
+  };
+  
+  ret.get = id =>
+    _$(".window-layer")(`#win-${metaOptions.group}-${id}`);
+  
+  return ret;
+};
+var WindowGeneric = new WindowTemp({
+  group: "generic"
+});
+
+var shell = new WindowTemp({
+  group: "shell",
+  mode: "elm.min"
 });
 
 _$(terminal)(".content").innerHTML = "";
-var addWindow = function(id, title){
-  return windows.push(newWindow({id: id, title: title})) - 1;
-}
