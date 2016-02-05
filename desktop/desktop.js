@@ -107,18 +107,18 @@ var WindowTemp = function(metaOptions) {
                   })]
                   : mode[1] == "std"
                     ? [$N("div")({
-                      className: "icon min"
+                      className: "icon hide"
                     }), $N("div")({
                       className: "icon reload"
                     })]
                     : [$N("div")({
-                      className: "icon min"
+                      className: "icon hide"
                     })]
           }), $N("div")({
             className: "right",
             children: mode[0] == "win"
               ? [$N("div")({
-                className: "icon min"
+                className: "icon hide"
               }), $N("div")({
                 className: "icon max"
               }), $N("div")({
