@@ -155,6 +155,7 @@ var WindowTemp = function(metaOptions) {
       this.trayListing.toTop();
     }
     toTop() {
+      this.trayListing.toTop();
       this.elem.classList.remove("hidden");
       $(".window-layer").appendChild(this.elem);
     }
