@@ -168,7 +168,7 @@ var WindowTemp = function(metaOptions) {
       this.trayListing = new TrayListing(this);
       this.trayListing.toTop();
       
-      options.onmake(this);
+      metaOptions.onmake(this);
     }
     toTop() {
       this.trayListing.toTop();
