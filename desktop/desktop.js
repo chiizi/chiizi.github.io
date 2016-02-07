@@ -211,7 +211,7 @@ var WindowGeneric = new WindowTemp({
 var Shell = new WindowTemp({
   group: "shell",
   mode: "elm.min",
-  onmake: () => getScript("./shell.js")
+  onmake: () => getScript("./shell.js"),
   content: () => [$N("input")({
     className: "shell-input"
   })]
