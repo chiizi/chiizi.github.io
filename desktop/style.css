@@ -81,11 +81,10 @@ body {
 }
 
 .win {
-  background-color: #F0F;
+  background-color: #CCC;
   resize: both;
   overflow: auto;
   position: absolute;
-  border: 3px solid #CCC;
   width: 206px;
   height: 206px;
 }
