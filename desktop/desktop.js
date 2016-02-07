@@ -215,7 +215,6 @@ var Shell = new WindowTemp({
   mode: "elm.min",
   onmake: () => getScript("./shell.js"),
   content: () => [$N("input")({
-    style: "font-family: monospace;",
     className: "shell-input",
     type: "text",
     name: "shell-in"
