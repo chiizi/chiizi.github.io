@@ -188,6 +188,8 @@ var WindowTemp = function(metaOptions) {
         this.elem.style.width = innerWidth - 1;
         this.elem.style.height = innerHeight - 50;
       }
+      
+      onmake(this);
     }
     close() {
       $(".window-layer").removeChild(this.elem);
