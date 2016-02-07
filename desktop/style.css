@@ -87,6 +87,7 @@ body {
   position: absolute;
   width: 209px;
   height: 209px;
+  border: 1px solid #F00010;
 }
 .win.maximized {
   top: 0;
