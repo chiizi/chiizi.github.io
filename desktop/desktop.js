@@ -6,10 +6,21 @@ var $ = q => document.querySelector(q);
 var $$ = q => document.querySelectorAll(q);
 var _$ = e => q => e.querySelector(q);
 var _$$ = e => q => e.querySelectorAll(q);
+var $A = p => c => p.appendChild(c);
+
+var div = $N("div");
 
 String.prototype.reverse = function() {
   return this.split("").reverse().join("");
 };
+
+var getScript = function(s) {
+  if (!(gotten.indexOf(s) + 1))
+    $A($("body"))($N("script")({
+      src: s
+    })).onload = () => gotten.push(s);
+};
+var gotten = [];
 
 document.documentElement.addEventListener("click", () =>
   document.documentElement.webkitRequestFullscreen());
@@ -19,10 +30,10 @@ var TrayListing = (function() {
   
   return class {
     constructor(win) {
-      var elem = $N("div")({
+      var elem = div({
         id: `tray-${win.group}-${win.id}`,
         className: "tray-listing",
-        children: [$N("div")({
+        children: [div({
           className: "icon close"
         }), $N("span")({
           className: "name",
@@ -69,67 +80,70 @@ var WindowTemp = function(metaOptions) {
       
       this.id = options.id;
       this.title = options.title;
-      var elem = $N("div")({
+      var elem = div({
         id: `win-${metaOptions.group}-${options.id}`,
         className: "win",
-        children: [$N("div")({
+        children: [div({
           className: "wintop",
           title: options.title || "untitled",
-          children: [$N("div")({
+          children: [div({
             className: "left",
             children: mode[0] == "win"
               ? mode[1] == "web"
-                ? [$N("div")({
+                ? [div({
                   className: "icon reload"
-                }), $N("div")({
+                }), div({
                   className: "icon back"
                 })]
                 : mode[1] == "std"
-                  ? [$N("div")({
+                  ? [div({
                     className: "icon reload"
                   })]
                   : []
               : mode[0] == "osx"
-                ? [$N("div")({
+                ? [div({
                   className: "icon close"
-                }), $N("div")({
+                }), div({
                   className: "icon max"
-                }), $N("div")({
+                }), div({
                   className: "icon hide"
                 })]
                 : mode[1] == "web"
-                  ? [$N("div")({
+                  ? [div({
                     className: "icon hide"
-                  }), $N("div")({
+                  }), div({
                     className: "icon reload"
-                  }), $N("div")({
+                  }), div({
                     className: "icon back"
                   })]
                   : mode[1] == "std"
-                    ? [$N("div")({
+                    ? [div({
                       className: "icon hide"
-                    }), $N("div")({
+                    }), div({
                       className: "icon reload"
                     })]
-                    : [$N("div")({
+                    : [div({
                       className: "icon hide"
                     })]
-          }), $N("div")({
+          }), div({
             className: "right",
             children: mode[0] == "win"
-              ? [$N("div")({
+              ? [div({
                 className: "icon hide"
-              }), $N("div")({
+              }), div({
                 className: "icon max"
-              }), $N("div")({
+              }), div({
                 className: "icon close"
               })]
               : mode[0] == "osx"
                 ? []
-                : [$N("div")({
+                : [div({
                   className: "icon max"
                 })]
           })]
+        }), div({
+          className: "content",
+          children: metaOptions.content(options)
         })]
       });
       
@@ -196,11 +210,16 @@ var WindowGeneric = new WindowTemp({
 
 var Shell = new WindowTemp({
   group: "shell",
-  mode: "elm.min"
+  mode: "elm.min",
+  onmake: () => getScript("./shell.js")
+  content: () => [$N("input")({
+    className: "shell-input"
+  })]
 });
 var Browser = new WindowTemp({
   group: "browser",
-  mode: "elm.web"
+  mode: "elm.web",
+  content: () => []
 });
 
 var mainCL = new Shell({
