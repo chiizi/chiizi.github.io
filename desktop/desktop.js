@@ -167,6 +167,8 @@ var WindowTemp = function(metaOptions) {
       this.elem = elem;
       this.trayListing = new TrayListing(this);
       this.trayListing.toTop();
+      
+      options.onmake(this);
     }
     toTop() {
       this.trayListing.toTop();
@@ -188,8 +190,6 @@ var WindowTemp = function(metaOptions) {
         this.elem.style.width = innerWidth - 1;
         this.elem.style.height = innerHeight - 50;
       }
-      
-      onmake(this);
     }
     close() {
       $(".window-layer").removeChild(this.elem);
