@@ -221,6 +221,7 @@ var Shell = new WindowTemp({
 var Browser = new WindowTemp({
   group: "browser",
   mode: "elm.web",
+  onmake: () => null,
   content: () => []
 });
 
