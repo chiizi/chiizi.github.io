@@ -85,7 +85,7 @@ body {
   resize: both;
   overflow: auto;
   position: absolute;
-  border: 1px solid #CCC;
+  border: 3px solid #CCC;
   width: 200px;
   height: 200px;
 }
