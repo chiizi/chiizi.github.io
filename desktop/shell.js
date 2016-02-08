@@ -59,7 +59,7 @@ var shellFn = function(t) {
     _$(t.elem)(".caretl").innerHTML = content.substr(0, position);
     _$(t.elem)(".caret").innerHTML = content[position] || "&nbsp;";
     _$(t.elem)(".caretr").innerHTML = content.substr(position + 1);
-    return true;
+    (e.preventDefault || () => null)();
   };
   kd({keyCode: null});
 
