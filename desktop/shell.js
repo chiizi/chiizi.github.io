@@ -17,7 +17,7 @@ var Shell = new WindowTemp({
         innerHTML: "lol jk this isn't a vm yet"
       }), $N("div")({
         className: "line in",
-        innerHTML: `[<span class="uname"></span>@<span class="hname"></span> <span class="dir">] $ </span><span class="caretl"></span><span class="caret"></span><span class="caretr">`
+        innerHTML: `[<span class="uname"></span>@<span class="hname"></span> <span class="dir"></span>] $ <span class="caretl"></span><span class="caret"></span><span class="caretr">`
       })]
     })]
   })]
@@ -25,8 +25,8 @@ var Shell = new WindowTemp({
 
 var shellFn = function(t) {
   var dir = `/home/${uname}`;
-  var content = "asdfghjkl";
-  var position = 2;
+  var content = "";
+  var position = 0;
   var kd = e => {
     _$(t.elem)(".uname").innerHTML = uname;
     _$(t.elem)(".hname").innerHTML = hname;
