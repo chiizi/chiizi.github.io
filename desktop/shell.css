@@ -1,4 +1,4 @@
-.shell {
+.shell, .shell * {
   font-family: monospace;
   color: #CCF;
   background: #001;
