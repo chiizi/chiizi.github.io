@@ -212,19 +212,6 @@ var WindowTemp = function(metaOptions) {
 var WindowGeneric = new WindowTemp({
   group: "generic"
 });
-
-var Shell = new WindowTemp({
-  group: "shell",
-  mode: "elm.min",
-  onmake: () => getScript("./shell.js"),
-  content: () => [$N("form")({
-    className: "shell-input",
-    children: [$N("input")({
-      type: "text",
-      name: "shell-in"
-    })]
-  })]
-});
 var Browser = new WindowTemp({
   group: "browser",
   mode: "elm.web",
@@ -232,14 +219,19 @@ var Browser = new WindowTemp({
   content: () => []
 });
 
-var mainCL = new Shell({
-  title: "Shell",
-  id: "main"
-});
-mainCL.toTop();
-
 var mainBrowser = new Browser({
   title: "Vrowser",
   id: "main"
 });
 mainBrowser.toTop();
+
+$A($("body"))($N("script")({
+  src: "./shell.js",
+  onload: function() {
+    window.mainCL = new Shell({
+      title: "Shell",
+      id: "main"
+    });
+    mainCL.toTop();
+  }
+}));
