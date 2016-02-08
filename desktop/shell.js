@@ -59,9 +59,9 @@ var shellFn = function(t) {
     _$(t.elem)(".caretl").innerHTML = content.substr(0, position);
     _$(t.elem)(".caret").innerHTML = content[position] || "&nbsp;";
     _$(t.elem)(".caretr").innerHTML = content.substr(position + 1);
-    (e.preventDefault || () => null)();
+    e.preventDefault();
   };
-  kd({keyCode: null});
+  kd({keyCode: null, preventDefault: () => null});
 
   $e(t.elem)("keydown")(kd);
 
