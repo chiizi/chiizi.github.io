@@ -3,6 +3,7 @@
   color: #CCF;
   background: #001;
   word-wrap: break-word;
+  word-break: break-all;
 }
 .shell .inv {
   color: #001;
