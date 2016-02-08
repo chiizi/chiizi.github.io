@@ -24,9 +24,13 @@ var Shell = new WindowTemp({
 });
 
 var shellFn = function(t) {
+  var dir = `/home/${uname}`;
   var content = "asdfghjkl";
   var position = 2;
   var kd = e => {
+    _$(t.elem)(".uname").innerHTML = uname;
+    _$(t.elem)(".hname").innerHTML = hname;
+    _$(t.elem)(".dir").innerHTML = dir == `/home/${uname}` ? "~" : dir;
     switch (e.keyCode) {
       case (13): {
         _$(t.elem)(".lines").insertBefore($N("div")({
