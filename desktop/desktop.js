@@ -88,7 +88,7 @@ var WindowTemp = function(metaOptions) {
       var elem = div({
         id: `win-${metaOptions.group}-${options.id}`,
         className: "win",
-        tabIndex: tabIndex++;
+        tabIndex: tabIndex++,
         children: [div({
           className: "wintop",
           title: options.title || "untitled",
