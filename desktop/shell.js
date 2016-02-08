@@ -64,8 +64,12 @@ var shellFn = function(t) {
       content = content.substr(0, position) + String.fromCharCode(e.keyCode + 32) + content.substr(position);
       position++;
     }
-    if (~[32, 219, 221].indexOf(e.keyCode)) {
+    if (~[32].indexOf(e.keyCode)) {
       content = content.substr(0, position) + String.fromCharCode(e.keyCode) + content.substr(position);
+      position++;
+    }
+    if (~[219, 221].indexOf(e.keyCode)) {
+      content = content.substr(0, position) + String.fromCharCode(e.keyCode - 128) + content.substr(position);
       position++;
     }
     position = Math.min(content.length, Math.max(0, position));
