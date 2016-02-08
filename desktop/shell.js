@@ -26,6 +26,7 @@ var Shell = new WindowTemp({
 var shellFn = function(t) {
   var dir = `/home/${uname}`;
   var content = "";
+  var contentF = () => content.split("").map(e => e == " " ? "&nbsp;" : e);
   var position = 0;
   
   t.elem.style.backgroundColor = "#001";
@@ -63,14 +64,14 @@ var shellFn = function(t) {
       content = content.substr(0, position) + String.fromCharCode(e.keyCode + 32) + content.substr(position);
       position++;
     }
-    if ([32, 219, 221].indexOf(e.keyCode) + 1) {
+    if (~[32, 219, 221].indexOf(e.keyCode)) {
       content = content.substr(0, position) + String.fromCharCode(e.keyCode) + content.substr(position);
       position++;
     }
     position = Math.min(content.length, Math.max(0, position));
-    _$(t.elem)(".caretl").innerHTML = content.substr(0, position);
+    _$(t.elem)(".caretl").innerHTML = contentF().slice(0, position).join("");
     _$(t.elem)(".caret").innerHTML = content[position] || "&nbsp;";
-    _$(t.elem)(".caretr").innerHTML = content.substr(position + 1);
+    _$(t.elem)(".caretr").innerHTML = contentF().slice(position + 1).join("");
     e.preventDefault();
   };
   kd({keyCode: null, preventDefault: () => null});
