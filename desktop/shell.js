@@ -30,7 +30,7 @@ var shellFn = function(t) {
   
   t.elem.style.backgroundColor = "#001";
   _$(t.elem)(".wintop").style.backgroundColor = "#223";
-  _$(t.elem)(".wintop .icon").style.backgroundColor = "#334";
+  _$$(t.elem)(".wintop .icon").map(e => e.style.backgroundColor = "#334");
   var kd = e => {
     _$(t.elem)(".uname").innerHTML = uname;
     _$(t.elem)(".hname").innerHTML = hname;
