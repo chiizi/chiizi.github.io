@@ -1,3 +1,4 @@
+"slice map forEach".split(" ").forEach(k => Object.prototype[k] = Array.prototype[k]);
 var $N = tag => o => (e => ((o.children !== undefined
   ? (o.children.map(c => e.appendChild(c)), delete o.children)
   : null),
@@ -6,6 +7,8 @@ var $ = q => document.querySelector(q);
 var $$ = q => document.querySelectorAll(q);
 var _$ = e => q => e.querySelector(q);
 var _$$ = e => q => e.querySelectorAll(q);
+var $e = q => e => f => $(q).addEventListener(e, f);
+var $$e = q => e => f => $$(q).map(g => g.addEventListener(e, f));
 var $A = p => c => p.appendChild(c);
 
 var div = $N("div");
