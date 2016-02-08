@@ -25,6 +25,8 @@ var getScript = function(s) {
 };
 var gotten = [];
 
+var tabIndex = 0;
+
 document.documentElement.addEventListener("click", () =>
   document.documentElement.webkitRequestFullscreen());
 
@@ -86,6 +88,7 @@ var WindowTemp = function(metaOptions) {
       var elem = div({
         id: `win-${metaOptions.group}-${options.id}`,
         className: "win",
+        tabIndex: tabIndex++;
         children: [div({
           className: "wintop",
           title: options.title || "untitled",
