@@ -2,6 +2,7 @@
   font-family: monospace;
   color: #CCF;
   background: #001;
+  word-wrap: break-word;
 }
 .shell .inv {
   color: #001;
