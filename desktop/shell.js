@@ -40,7 +40,7 @@ var shellFn = function(t) {
       case (13): {
         _$(t.elem)(".lines").insertBefore($N("div")({
           className: "line",
-          innerHTML: content
+          innerHTML: contentF().join("")
         }), _$(t.elem)(".in"));
         content = "";
       }
