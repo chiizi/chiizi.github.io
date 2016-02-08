@@ -1,0 +1,9 @@
+.shell {
+  font-family: monospace;
+  color: #CCF;
+  background: #001;
+}
+.shell .inv {
+  color: #001;
+  background: #CCF;
+}
