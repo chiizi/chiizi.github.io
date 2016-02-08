@@ -238,3 +238,8 @@ $A($("body"))($N("script")({
     mainCL.toTop();
   }
 }));
+
+$e($("body"))("keydown")(e =>
+  e.keyCode == 8
+    ? false
+    : true);
