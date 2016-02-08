@@ -27,6 +27,9 @@ var gotten = [];
 
 var tabIndex = 0;
 
+var uname = "j-doe";
+var hname = "glass";
+
 document.documentElement.addEventListener("click", () =>
   document.documentElement.webkitRequestFullscreen());
 
