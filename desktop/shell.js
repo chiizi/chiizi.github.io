@@ -27,8 +27,11 @@ var shellFn = function(t) {
   var dir = `/home/${uname}`;
   var content = "";
   var position = 0;
+  
+  t.elem.style.backgroundColor = "#001";
+  _$(t.elem)(".wintop").style.backgroundColor = "#223";
+  _$(t.elem)(".wintop .icon").style.backgroundColor = "#334";
   var kd = e => {
-    t.elem.style.backgroundColor = "#001";
     _$(t.elem)(".uname").innerHTML = uname;
     _$(t.elem)(".hname").innerHTML = hname;
     _$(t.elem)(".dir").innerHTML = dir == `/home/${uname}` ? "~" : dir;
