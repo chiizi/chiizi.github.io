@@ -12,8 +12,9 @@ var player = {
   h: 32,
   color: "#000",
   speedx: 0,
+  maxSpeedx: 256 / 60,
   speedy: 0,
-  accel: 128 / 60,
+  accel: 24 / 60,
   accely: 32,
   gravity: 12,
   inAir: function() {return this.y > 0},
@@ -32,6 +33,8 @@ var update = function(o) {
     if (o.jumpQueued || 32 in keysDown) {
       o.jump();
       o.jumpQueued = false;
+    } else {
+      o.speedx = Math.min(Math.max(o.speedx, -o.maxSpeedx), o.maxSpeedx)
     }
     if (37 in keysDown) {
       o.speedx -= o.accel;
