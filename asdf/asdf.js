@@ -52,7 +52,7 @@ var update = function(o) {
 
 var render = function(o) {
   ctx.fillStyle = o.color;
-  ctx.fillRect(o.x, canvas.height - o.y - o.h, o.w, o.y);
+  ctx.fillRect(o.x, canvas.height - o.y - o.h, o.w, o.h);
 };
 
 var main = function() {
