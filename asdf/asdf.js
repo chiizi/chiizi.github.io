@@ -24,8 +24,12 @@ var player = {
 };
 
 var update = function(o) {
-  if (!o.inAir()) {
-    if (o.jumpQueued) {
+  if (o.inAir()) {
+    if (32 in keysDown) {
+      o.jumpQueued = true;
+    }
+  } else {
+    if (o.jumpQueued || 32 in keysDown) {
       o.jump();
     }
     if (37 in keysDown) {
@@ -34,13 +38,6 @@ var update = function(o) {
       o.speedx += o.accel;
     } else {
       o.speedx /= 1.2;
-    }
-  }
-  if (32 in keysDown) {
-    if (o.inAir) {
-      // o.jumpQueued = true;
-    } else {
-      o.jump();
     }
   }
   o.y += o.speedy - o.gravity;
