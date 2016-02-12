@@ -82,7 +82,7 @@ var update = function(o) {
   if (o.x < 6)
     o.x = canvas.width - 6;
   if (o.x > canvas.width - 6)
-    o.x = 6 - o.w;
+    o.x = 7 - o.w;
 };
 
 var render = (...o) => o.map(function(o) {
