@@ -46,13 +46,13 @@ var update = function(o) {
       o.jump();
     }
   }
-  o.speedx += o.accel;
+  o.x += o.speedx;
   o.y = Math.max(0, o.y);
 };
 
 var render = function(o) {
   ctx.fillStyle = o.color;
-  ctx.fillRect(o.x, canvas.height - o.y - o.h, o.x + o.w, canvas.height - o.y);
+  ctx.fillRect(o.x, canvas.height - o.y - o.h, o.w, o.y);
 };
 
 var main = function() {
