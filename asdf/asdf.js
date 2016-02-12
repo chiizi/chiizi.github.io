@@ -35,9 +35,6 @@ var update = function(o) {
     } else {
       o.speedx /= 1.2;
     }
-  } else {
-    o.y += o.speedy - o.gravity;
-    o.speedy /= 1.2;
   }
   if (32 in keysDown) {
     if (o.inAir) {
@@ -46,6 +43,8 @@ var update = function(o) {
       o.jump();
     }
   }
+  o.y += o.speedy - o.gravity;
+  o.speedy /= 1.2;
   o.x += o.speedx;
   o.y = Math.max(0, o.y);
 };
