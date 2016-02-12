@@ -38,7 +38,7 @@ var update = function(o) {
   }
   if (32 in keysDown) {
     if (o.inAir) {
-      o.jumpQueued = true;
+      // o.jumpQueued = true;
     } else {
       o.jump();
     }
