@@ -51,12 +51,12 @@ var update = function(o) {
 };
 
 var render = function(o) {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = o.color;
   ctx.fillRect(o.x, canvas.height - o.y - o.h, o.x + o.w, canvas.height - o.y);
 };
 
 var main = function() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   update(player);
   render(player);
   
