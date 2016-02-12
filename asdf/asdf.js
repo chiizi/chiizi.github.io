@@ -79,10 +79,10 @@ var update = function(o) {
   o.speedy /= 1.2;
   o.x += o.speedx;
   o.y = Math.max(0, o.y);
-  if (o.x < -o.w - 6)
-    o.x = canvas.width + o.w + 6;
-  if (o.x > canvas.width + o.w + 6)
-    o.x = -o.w - 6;
+  if (o.x < 6)
+    o.x = canvas.width - 6;
+  if (o.x > canvas.width - 6)
+    o.x = 6 - o.w;
 };
 
 var render = (...o) => o.map(function(o) {
