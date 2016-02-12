@@ -23,6 +23,21 @@ var player = {
   },
   jumpQueued: false
 };
+var fakeOffset = function(o, x, y) {
+  o = Object.assign({}, o);
+  o.x += x;
+  o.y += y;
+  return o;
+}
+var bothOffsets = function(o, x, y) {
+  o1 = Object.assign({}, o);
+  o2 = Object.assign({}, o);
+  o1.x += x;
+  o1.y += y;
+  o2.x -= x;
+  o2.y -= y;
+  return [o1, o2];
+}
 var lPortal = {
   color: "#F80",
   x: 0,
@@ -78,7 +93,7 @@ var render = (...o) => o.map(function(o) {
 var main = function() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   update(player);
-  render(player, lPortal, rPortal);
+  render(player, ...bothOffsets(player, canvas.width - 12, 0), lPortal, rPortal);
   
   requestAnimationFrame(main);
 };
