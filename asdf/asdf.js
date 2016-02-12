@@ -23,6 +23,20 @@ var player = {
   },
   jumpQueued: false
 };
+var lPortal = {
+  color: "#F80",
+  x: 0,
+  y: 0,
+  w: 6,
+  h: canvas.height
+};
+var rPortal = {
+  color: "#0FF",
+  x: canvas.width - 6,
+  y: 0,
+  w: 6,
+  h: canvas.height
+};
 
 var update = function(o) {
   if (o.inAir()) {
