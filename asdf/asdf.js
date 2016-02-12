@@ -81,8 +81,8 @@ var update = function(o) {
   o.y = Math.max(0, o.y);
   if (o.x < 6)
     o.x = canvas.width - 6;
-  if (o.x > canvas.width - 6)
-    o.x = 7 - o.w;
+  if (o.x > canvas.width - 7)
+    o.x = 6 - o.w;
 };
 
 var render = (...o) => o.map(function(o) {
