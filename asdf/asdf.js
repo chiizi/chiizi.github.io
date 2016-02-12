@@ -6,8 +6,8 @@ addEventListener("keydown", e => keysDown[e.keyCode] = true);
 addEventListener("keyup", e => delete keysDown[e.keyCode]);
 
 var player = {
-  x: 0,
-  y: 0,
+  x: 6,
+  y: 96,
   w: 32,
   h: 32,
   color: "#000",
@@ -81,7 +81,7 @@ var update = function(o) {
   o.y = Math.max(0, o.y);
   if (o.x < 6)
     o.x = canvas.width - 6;
-  if (o.x > canvas.width - 7)
+  if (o.x > canvas.width - 5)
     o.x = 6 - o.w;
 };
 
