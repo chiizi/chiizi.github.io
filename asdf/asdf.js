@@ -14,7 +14,7 @@ var player = {
   speedx: 0,
   speedy: 0,
   accel: 128 / 60,
-  accely: 128 / 60,
+  accely: 32,
   gravity: 12,
   inAir: function() {return this.y > 0},
   jump: function() {
