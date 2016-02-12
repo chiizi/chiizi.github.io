@@ -40,6 +40,8 @@ var update = function(o) {
       o.speedx -= o.accel;
     } else if (39 in keysDown) {
       o.speedx += o.accel;
+    } else if (32 in keysDown) {
+      
     } else {
       o.speedx /= 1.5;
     }
