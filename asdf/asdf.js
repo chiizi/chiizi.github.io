@@ -70,15 +70,15 @@ var update = function(o) {
     o.x = -o.w;
 };
 
-var render = function(o) {
+var render = (...o) => o.map(function(o) {
   ctx.fillStyle = o.color;
   ctx.fillRect(o.x, canvas.height - o.y - o.h, o.w, o.h);
-};
+});
 
 var main = function() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   update(player);
-  render(player);
+  render(player, lPortal, rPortal);
   
   requestAnimationFrame(main);
 };
