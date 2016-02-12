@@ -31,6 +31,7 @@ var update = function(o) {
   } else {
     if (o.jumpQueued || 32 in keysDown) {
       o.jump();
+      o.jumpQueued = false;
     }
     if (37 in keysDown) {
       o.speedx -= o.accel;
