@@ -30,7 +30,7 @@ var update = function(o) {
     }
     if (37 in keysDown) {
       o.speedx -= o.accel;
-    } else if (37 in keysDown) {
+    } else if (39 in keysDown) {
       o.speedx += o.accel;
     } else {
       o.speedx /= 1.2;
