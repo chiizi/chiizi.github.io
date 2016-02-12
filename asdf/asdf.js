@@ -27,7 +27,7 @@ var player = {
 var update = function(o) {
   if (o.inAir()) {
     if (32 in keysDown) {
-      o.jumpQueued = true;
+      //o.jumpQueued = true;
     }
   } else {
     if (o.jumpQueued || 32 in keysDown) {
