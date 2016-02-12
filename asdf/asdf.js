@@ -46,7 +46,7 @@ var update = function(o) {
       o.jump();
     }
   }
-  o.x += o.speedx;
+  o.speedx += o.speedx;
   o.y = Math.max(0, o.y);
 };
 
