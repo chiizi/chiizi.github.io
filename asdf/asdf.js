@@ -61,3 +61,5 @@ var main = function() {
   
   requestAnimationFrame(main);
 };
+
+main();
