@@ -12,11 +12,11 @@ var player = {
   h: 32,
   color: "#000",
   speedx: 0,
-  maxSpeedx: 256 / 60,
+  maxSpeedx: 512 / 60,
   speedy: 0,
-  accel: 24 / 60,
-  accely: 32,
-  gravity: 12,
+  accel: 16 / 60,
+  accely: 48,
+  gravity: 13,
   inAir: function() {return this.y > 0},
   jump: function() {
     this.speedy = this.accely;
@@ -41,13 +41,17 @@ var update = function(o) {
     } else if (39 in keysDown) {
       o.speedx += o.accel;
     } else {
-      o.speedx /= 1.2;
+      o.speedx /= 1.5;
     }
   }
   o.y += o.speedy - o.gravity;
   o.speedy /= 1.2;
   o.x += o.speedx;
   o.y = Math.max(0, o.y);
+  if (o.x < -o.w)
+    o.x = canvas.width + o.w;
+  if (o.x > canvas.width + o.w)
+    o.x = -o.w;
 };
 
 var render = function(o) {
