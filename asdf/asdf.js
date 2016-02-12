@@ -14,11 +14,11 @@ var player = {
   speedx: 0,
   speedy: 0,
   accel: 128 / 60,
-  jump: 256,
+  accely: 256,
   gravity: 4,
   inAir: function() {return this.y > 0},
   jump: function() {
-    this.speedy = this.jump;
+    this.speedy = this.accely;
   },
   jumpQueued: false
 };
