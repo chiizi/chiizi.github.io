@@ -32,6 +32,8 @@ var shellFn = function(t) {
   t.elem.style.backgroundColor = "#001";
   _$(t.elem)(".wintop").style.backgroundColor = "#223";
   _$$(t.elem)(".wintop .icon").map(e => e.style.backgroundColor = "#334");
+  
+  var shift = false;
   var kd = e => {
     _$(t.elem)(".uname").innerHTML = uname;
     _$(t.elem)(".hname").innerHTML = hname;
@@ -43,6 +45,10 @@ var shellFn = function(t) {
           innerHTML: contentF().join("")
         }), _$(t.elem)(".in"));
         content = "";
+        break;
+      }
+      case (16): {
+        shift = true;
       }
       case (8): {
         content = content.substr(0, position - 1) + content.substr(position);
@@ -61,7 +67,7 @@ var shellFn = function(t) {
       }
     }
     if (e.keyCode >= 65 && e.keyCode <= 90) {
-      content = content.substr(0, position) + String.fromCharCode(e.keyCode + 32) + content.substr(position);
+      content = content.substr(0, position) + String.fromCharCode(e.keyCode + shift ? 0 : 32) + content.substr(position);
       position++;
     }
     if (~[32].indexOf(e.keyCode) || (e.keyCode >= 48 && e.keyCode <= 57)) {
@@ -82,9 +88,17 @@ var shellFn = function(t) {
     _$(t.elem)(".caretr").innerHTML = contentF().slice(position + 1).join("");
     e.preventDefault();
   };
+  var ku = e => {
+    switch (e.keyCode) {
+      case (16): {
+        shift = false;
+      }
+    }
+  };
   kd({keyCode: null, preventDefault: () => null});
 
   $e(t.elem)("keydown")(kd);
+  $e(t.elem)("keyup")(ku);
 
   setInterval(() =>
     _$(t.elem)(".caret").classList.toggle("inv"), 500);
