@@ -22,6 +22,7 @@
     if (e.keyCode == 13) {
       var output = document.createElement("div");
       output.innerHTML = game(this.value);
+      this.value = null;
       document.querySelector(".output").appendChild(output);
       return false;
     }
