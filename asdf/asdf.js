@@ -14,8 +14,8 @@ var player = {
   speedx: 0,
   maxSpeedx: 512 / 60,
   speedy: 0,
-  accel: 32 / 60,
-  accely: 48,
+  accelx: 32 / 60,
+  accely: 2048 / 60,
   gravity: 13,
   inAir: function() {return this.y > 0},
   jump: function() {
@@ -37,9 +37,9 @@ var update = function(o) {
       o.speedx = Math.min(Math.max(o.speedx, -o.maxSpeedx), o.maxSpeedx)
     }
     if (37 in keysDown) {
-      o.speedx -= o.accel;
+      o.speedx -= o.accelx;
     } else if (39 in keysDown) {
-      o.speedx += o.accel;
+      o.speedx += o.accelx;
     } else if (32 in keysDown) {
       
     } else {
