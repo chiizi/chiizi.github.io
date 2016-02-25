@@ -6,8 +6,8 @@ addEventListener("keydown", e => keysDown[e.keyCode] = true);
 addEventListener("keyup", e => delete keysDown[e.keyCode]);
 
 var player = {
-  x: 6,
-  y: 96,
+  x: 0,
+  y: 0,
   w: 32,
   h: 32,
   color: "#000",
@@ -22,35 +22,6 @@ var player = {
     this.speedy = this.accely;
   },
   jumpQueued: false
-};
-var fakeOffset = function(o, x, y) {
-  o = Object.assign({}, o);
-  o.x += x;
-  o.y += y;
-  return o;
-}
-var bothOffsets = function(o, x, y) {
-  o1 = Object.assign({}, o);
-  o2 = Object.assign({}, o);
-  o1.x += x;
-  o1.y += y;
-  o2.x -= x;
-  o2.y -= y;
-  return [o1, o2];
-}
-var lPortal = {
-  color: "#F80",
-  x: 0,
-  y: 0,
-  w: 6,
-  h: canvas.height
-};
-var rPortal = {
-  color: "#0FF",
-  x: canvas.width - 6,
-  y: 0,
-  w: 6,
-  h: canvas.height
 };
 
 var update = function(o) {
@@ -79,21 +50,21 @@ var update = function(o) {
   o.speedy /= 1.2;
   o.x += o.speedx;
   o.y = Math.max(0, o.y);
-  if (o.x < 6)
-    o.x = canvas.width - 6;
-  if (o.x > canvas.width - 5)
-    o.x = 6 - o.w;
+  if (o.x < -o.w)
+    o.x = canvas.width + o.w;
+  if (o.x > canvas.width + o.w)
+    o.x = -o.w;
 };
 
-var render = (...o) => o.map(function(o) {
+var render = function(o) {
   ctx.fillStyle = o.color;
   ctx.fillRect(o.x, canvas.height - o.y - o.h, o.w, o.h);
-});
+};
 
 var main = function() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   update(player);
-  render(player, ...bothOffsets(player, canvas.width - 12, 0), lPortal, rPortal);
+  render(player);
   
   requestAnimationFrame(main);
 };
