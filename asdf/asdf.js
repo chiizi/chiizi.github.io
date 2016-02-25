@@ -1,3 +1,6 @@
+var toColor = num =>
+  return `rgba(${[(num & 0xFF0000) >>> 16, (num & 0xFF00) >>> 8, num & 0xFF, 255 - ((num & 0xFF000000) >>> 24) / 255].join(",")})`;
+
 var canvas = document.querySelector("#frame");
 var ctx = canvas.getContext("2d");
 
@@ -12,9 +15,12 @@ var player = {
   h: 32,
   color: "#000",
   speedx: 0,
-  maxSpeedx: 512 / 60,
-  speedy: 0,
   accelx: 32 / 60,
+  maxSpeedx: 512 / 60,
+  speedz: 0,
+  accelz: 32 / 60,
+  maxSpeedz: 512 / 60,
+  speedy: 0,
   accely: 2048 / 60,
   gravity: 13,
   inAir: function() {return this.y > 0},
@@ -45,6 +51,7 @@ var update = function(o) {
     } else {
       o.speedx /= 1.5;
     }
+    if ()
   }
   o.y += o.speedy - o.gravity;
   o.speedy /= 1.2;
