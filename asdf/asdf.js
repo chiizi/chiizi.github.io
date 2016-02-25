@@ -51,7 +51,6 @@ var update = function(o) {
     } else {
       o.speedx /= 1.5;
     }
-    if ()
   }
   o.y += o.speedy - o.gravity;
   o.speedy /= 1.2;
