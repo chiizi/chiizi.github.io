@@ -20,6 +20,7 @@ var player = {
   accelx: 32 / 60,
   accely: 4096 / 60,
   gravity: 13,
+  boosted: false,
   inAir: function() {return this.y > 0},
   jump: function() {
     this.speedy = this.accely;
@@ -27,9 +28,10 @@ var player = {
   jumpQueued: false
 };
 
-var update = function(o) {
+var update = (...o) => o.map(o => {
   if (o.inAir()) {
     if (32 in keysDown) {
+      o.speedx += o.accelx * 10
       //o.jumpQueued = true;
     }
   } else {
@@ -57,7 +59,7 @@ var update = function(o) {
     o.x = canvas.width + o.w;
   if (o.x > canvas.width + o.w)
     o.x = -o.w;
-};
+});
 
 var render = function(o) {
   ctx.fillStyle = o.color;
