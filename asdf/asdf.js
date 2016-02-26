@@ -24,20 +24,32 @@ var player = {
   inAir: function() {return this.y > 0},
   jump: function() {
     this.speedy = this.accely;
+    this.jremains = true;
   },
-  jumpQueued: false
+  jumped: false,
+  jumpQueued: false,
+  jremains: false
 };
 
 var update = (...o) => o.map(o => {
   if (o.inAir()) {
     if (32 in keysDown) {
-      o.speedx *= 2
+      if (!o.boosted && !o.jremains) {
+        o.speedx *= 2;
+        o.boosted = true;
+      }
+      
       //o.jumpQueued = true;
+    } else {
+      o.jremains = false;
     }
   } else {
+    o.boosted = o.jumped = o.jremains = false;
     if (o.jumpQueued || 32 in keysDown) {
       o.jump();
       o.jumpQueued = false;
+      o.jumped = true;
+      o.jremains = true;
     } else {
       o.speedx = Math.min(Math.max(o.speedx, -o.maxSpeedx), o.maxSpeedx)
     }
