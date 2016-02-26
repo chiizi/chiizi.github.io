@@ -2,6 +2,9 @@
   return `rgba(${[(num & 0xFF0000) >>> 16, (num & 0xFF00) >>> 8, num & 0xFF, 255 - ((num & 0xFF000000) >>> 24) / 255].join(", ")})`;*/
 
 var canvas = document.querySelector("#frame");
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
 var ctx = canvas.getContext("2d");
 
 var keysDown = {};
