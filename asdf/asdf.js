@@ -31,7 +31,7 @@ var player = {
 var update = (...o) => o.map(o => {
   if (o.inAir()) {
     if (32 in keysDown) {
-      o.speedx += o.accelx * 10
+      o.speedx *= 2
       //o.jumpQueued = true;
     }
   } else {
