@@ -35,7 +35,7 @@ var update = (...o) => o.map(o => {
   if (o.inAir()) {
     if (32 in keysDown) {
       if (!o.boosted && !o.jremains) {
-        o.speedx *= 2;
+        o.speedx *= 5;
         o.boosted = true;
       }
       
