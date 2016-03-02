@@ -75,8 +75,8 @@ var onmousemove = function(e) {
 var canvas, ctx
 
 onload = () => {
-  canvas = document.createElement("canvas")
-  document.body.appendChild(canvas)
+  document.body.appendChild(document.createElement("canvas"))
+  canvas = document.querySelector("canvas")
   ctx = canvas.getContext("2d")
   
   (onresize = function() {
