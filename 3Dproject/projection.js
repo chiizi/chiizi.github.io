@@ -45,6 +45,7 @@ var update = function() {
   var point
   while (i --> 0) {
     point = points[i]
+    point = [...(xyz(point).map((n, i, a) => n + a[i + 3])), ...point.slice(3)]
     if (point[z] <- fov) point[z] += (fov * 2)
   }
   then = now
