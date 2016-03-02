@@ -1,13 +1,20 @@
+var setPixel = function(imagedata, x, y, r, g, b, a) {
+  var i = ((y >> 0) * imagedata.width + (x >> 0)) * 4
+  
+  imagedata.data[i] = r
+  imagedata.data[i + 1] = g
+  imagedata.data[i + 2] = b
+  imagedata.data[i + 3] = a || 255
+}
+var xyz = a => [a[x], a[y], a[z]]
 var canvas = document.createElement("canvas")
 var ctx = canvas.getContext("2d")
 document.body.appendChild("canvas")
-canvas.x = 0
-canvas.y = 0
 (onresize = function() {
   canvas.width = innerWidth
   canvas.height = innerHeight
 })()
-var x = 0, y = 1, z = 2, vx = 3, vy = 4, vz = 5, ax = 6, ay = 7, az = 8, jx = 9, jy = 10, jz = 11
+var x = 0, y = 1, z = 2, vx = 3, vy = 4, vz = 5, ax = 6, ay = 7
 
 var fov = 400
 var off = {x: 0, y: 0}
@@ -27,38 +34,40 @@ var t = {
   }
 }
 
-var render = function(points, fov, pf) {
-  var scale, point, x2d, y2d
-  t.clear(canvas)
-  var scale
-  var i = points.length
-  while (i --> 0) {
-    point = points[i]
-    scale = fov / (fov + point[3])
-    var x2d = (point[0] * scale) + halfWidth
-    var y2d = (pixel[1] * scale) + halfHeight
-    pf(x2d, y2d)
-  }
-  requestAnimationFrame(render)
+var project = function(x, y, z, fov) {
+  return [(x * fov / (fov + z)) + halfWidth, (y * fov / (fov + z)) + halfHeight]
 }
 var update = function(then) {
   var now = Date.now()
   var mod = now - then / 1000
   
-  off.x += (m.x - off.x) * 0.1
-  off.y += (m.y - off.y) * 0.1
+  off.x += (m.x - off.x) * 256 * mod
+  off.y += (m.y - off.y) * 256 * mod
   
   var i = points.length
   var point
   while (i --> 0) {
     point = points[i]
-    if (point[z] <- fov) points[i].z += (fov * 2)
+    if (point[z] <- fov) point[z] += (fov * 2)
   }
-  setTimeout(() => update(now), 1000 / 60)
+  setTimeout(() => update(now), 10)
 }
+
+var render = function(ctx) {
+  requestAnimationFrame(() => render(ctx))
+  t.clear(canvas)
+  
+  var img = ctx.getImageData(0, 0, canvas.width, canvas.height)
+  var dat = img.data
+  points.map(p => project(...xyz(p), fov)).forEach(function(pixel) {
+    setPixel(img, ...pixel, 255, 255, 255)
+  })
+  ctx.putImageData(img, 0, 0)
+}
+
 var start = function() {
   update(Date.now)
-  render()
+  render(ctx)
 }
 
 var m = {
