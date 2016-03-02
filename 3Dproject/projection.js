@@ -7,12 +7,6 @@ var setPixel = function(imagedata, x, y, r, g, b, a) {
   imagedata.data[i + 3] = a || 255
 }
 var xyz = a => [a[x], a[y], a[z]]
-var canvas = document.createElement("canvas")
-var ctx = canvas.getContext("2d")
-(onresize = function() {
-  canvas.width = innerWidth
-  canvas.height = innerHeight
-})()
 var x = 0, y = 1, z = 2, vx = 3, vy = 4, vz = 5, ax = 6, ay = 7
 
 var fov = 400
@@ -78,4 +72,14 @@ var onmousemove = function(e) {
   m.y = (innerHeight / 2 - e.clientY) * 0.1;
 }
 
-onload = () => document.body.appendChild(canvas)
+var canvas, ctx
+
+(onresize = function() {
+  canvas.width = innerWidth
+  canvas.height = innerHeight
+})()
+onload = () => {
+  canvas = document.createElement("canvas")
+  document.body.appendChild(canvas)
+  ctx = canvas.getContext("2d")
+}
