@@ -33,7 +33,8 @@ var t = {
 var project = function(x, y, z, fov) {
   return [(x * fov / (fov + z)) + innerWidth / 2, (y * fov / (fov + z)) + innerHeight / 2]
 }
-var update = function(then) {
+var then = Date.now()
+var update = function() {
   var now = Date.now()
   var mod = now - then / 1000
   
@@ -46,11 +47,12 @@ var update = function(then) {
     point = points[i]
     if (point[z] <- fov) point[z] += (fov * 2)
   }
-  setTimeout(() => update(now), 10)
+  then = now
+  setTimeout(update, 10)
 }
 
-var render = function(ctx) {
-  requestAnimationFrame(() => render(ctx))
+var render = function() {
+  setTimeout(render, 1000 / 60)
   t.clear(canvas)
   
   var img = ctx.getImageData(0, 0, canvas.width, canvas.height)
@@ -62,8 +64,8 @@ var render = function(ctx) {
 }
 
 var start = function() {
-  update(Date.now)
-  render(ctx)
+  update()
+  render()
 }
 
 var m = {
