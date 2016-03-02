@@ -41,8 +41,8 @@ var update = function(then) {
   var now = Date.now()
   var mod = now - then / 1000
   
-  off.x += (m.x - off.x) * 256 * mod
-  off.y += (m.y - off.y) * 256 * mod
+  off.x += (m.x - off.x) * 6 * mod
+  off.y += (m.y - off.y) * 6 * mod
   
   var i = points.length
   var point
