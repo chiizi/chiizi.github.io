@@ -9,7 +9,6 @@ var setPixel = function(imagedata, x, y, r, g, b, a) {
 var xyz = a => [a[x], a[y], a[z]]
 var canvas = document.createElement("canvas")
 var ctx = canvas.getContext("2d")
-document.body.appendChild(canvas)
 (onresize = function() {
   canvas.width = innerWidth
   canvas.height = innerHeight
@@ -78,3 +77,5 @@ var onmousemove = function(e) {
   m.x = (innerWidth / 2 - e.clientX) * 0.1;
   m.y = (innerHeight / 2 - e.clientY) * 0.1;
 }
+
+onload = () => document.body.appendChild(canvas)
