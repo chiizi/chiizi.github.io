@@ -74,12 +74,13 @@ var onmousemove = function(e) {
 
 var canvas, ctx
 
-(onresize = function() {
-  canvas.width = innerWidth
-  canvas.height = innerHeight
-})()
 onload = () => {
   canvas = document.createElement("canvas")
   document.body.appendChild(canvas)
   ctx = canvas.getContext("2d")
+  
+  (onresize = function() {
+    canvas.width = innerWidth
+    canvas.height = innerHeight
+  })()
 }
