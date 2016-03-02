@@ -1,4 +1,5 @@
-var canvas = document.createElement("canvas")
+var canvas = document.querySelector("canvas")
+var ctx = canvas.getContext("2d")
 
 var setPixel = function(imagedata, x, y, r, g, b, a) {
   var i = ((y >> 0) * imagedata.width + (x >> 0)) * 4
@@ -30,7 +31,7 @@ var t = {
 }
 
 var project = function(x, y, z, fov) {
-  return [(x * fov / (fov + z)) + halfWidth, (y * fov / (fov + z)) + halfHeight]
+  return [(x * fov / (fov + z)) + innerWidth / 2, (y * fov / (fov + z)) + innerHeight / 2]
 }
 var update = function(then) {
   var now = Date.now()
@@ -74,14 +75,7 @@ var onmousemove = function(e) {
   m.y = (innerHeight / 2 - e.clientY) * 0.1;
 }
 
-var ctx
-onload = () => {
-  document.body.appendChild(canvas)
-  console.log(canvas, canvas.getContext)
-  ctx = canvas.getContext("2d")
-  
-  (onresize = function() {
-    canvas.width = innerWidth
-    canvas.height = innerHeight
-  })()
-}
+(onresize = function() {
+  canvas.width = innerWidth
+  canvas.height = innerHeight
+})()
