@@ -75,7 +75,8 @@ var onmousemove = function(e) {
   m.y = (innerHeight / 2 - e.clientY) * 0.1;
 }
 
-(onresize = function() {
+onresize = function() {
   canvas.width = innerWidth
   canvas.height = innerHeight
-})()
+}
+onresize()
