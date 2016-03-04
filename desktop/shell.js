@@ -40,7 +40,7 @@ var shellFn = function(t) {
       case (13): {
         _$(t.elem)(".lines").insertBefore($N("div")({
           className: "line",
-          innerHTML: contentF().join("")
+          innerHTML: `[${uname}@${hname} ${dir.replace(new RegExp(`^/home/${uname}`), "~") ? "~" : dir}] $ ${contentF().join("")}`
         }), _$(t.elem)(".in"));
         content = "";
       }
