@@ -49,7 +49,7 @@ const cube = (c, r) => lines(...[
   line(center.add(-r, -r, -r), center.add(-r, r, -r)),
   line(center.add(r, -r, -r), center.add(r, r, -r)),
   line(center.add(-r, -r, r), center.add(-r, r, r)),
-  line(center.add(r, -r, r), center.add(r, r, r))
+  line(center.add(r, -r, r), center.add(r, r, r)),
   
   line(center.add(-r, r, -r), center.add(r, r, -r)),
   line(center.add(-r, r, -r), center.add(-r, r, r)),
