@@ -1,65 +1,65 @@
-{
-  const make = p => c =>
-    Object.seal(Object.assign(Object.assign({}, p), c || {}))
-} // weird stuff
-
 const canvas = document.querySelector("canvas")
 const ctx = canvas.getContext("2d")
+var fov = 200
 
-const xyz = make({
-  x: 0,
-  y: 0,
-  z: 0,
-  add(c) {
-    this.x += c.x
-    this.y += c.y
-    this.z += c.z
+const pyth = (a, b) => Math.sqrt(Math.abs(a) * Math.abs(a) + Math.abs(b) * Math.abs(b))
+
+const vertex = (x, y, z) => Object.assign([x, y, z], {
+  add(x, y, z) {
+    return vertex(this[0] + x, this[1] + y, this[2] + z)
+  },
+  sub(x, y, z) {
+    return vertex(this[0] - x, this[1] - y, this[2] - z)
+  },
+  scale(n) {
+    return vertex(this[0] * x, this[1] * y, this[2] * z)
+  },
+  rotate(a) {
+    return vertex(pyth(this[0], this[2]) * cos(a), this[1], pyth(this[0], this[2]) * sin(a))
+  },
+  get inv() {
+    return vertex(-this[0], -this[1], -this[2])
+  },
+  set inv(v) {
+    this.x = -v.x
+    this.y = -v.y
+    this.z = -v.z
     return this
+  },
+  get copy() {
+    return vertex(...this)
   }
 })
-
-const color = function(c) {
-  const c = c || 0
-  const a = 255 - (c / 0x01000000 & 0xFF)
-  const r = c >> 0x10 & 0xFF
-  const g = c >> 0x08 & 0xFF
-  const b = c >> 0x00 & 0xFF
-  const string = `rgba(${r}, ${g}, ${b}, ${a / 255})`
+const vertex2D = (x, y) => Object.assign([x, y], {
+  add(x, y) {
+    return [this[0] + x, this[1] + y]
+  },
+  copy: vertex2D(...this)
+})
+const line = (v1, v2) => [v1, v2]
+const lines = (...a) => ({
+  lines: a
+})
+const cube = (c, r) => lines(...[
+  line(center.add(-r, -r, -r), center.add(r, -r, -r)),
+  line(center.add(-r, -r, -r), center.add(-r, -r, r)),
+  line(center.add(r, -r, -r), center.add(r, -r, r)),
+  line(center.add(-r, -r, r), center.add(r, -r, r)),
   
-  return Object.freeze({
-    r, g, b, a, string, c
-  })
-}
+  line(center.add(-r, -r, -r), center.add(-r, r, -r)),
+  line(center.add(r, -r, -r), center.add(r, r, -r)),
+  line(center.add(-r, -r, r), center.add(-r, r, r)),
+  line(center.add(r, -r, r), center.add(r, r, r))
+  
+  line(center.add(-r, r, -r), center.add(r, r, -r)),
+  line(center.add(-r, r, -r), center.add(-r, r, r)),
+  line(center.add(r, r, -r), center.add(r, r, r)),
+  line(center.add(-r, r, r), center.add(r, r, r))
+])
 
-const point = make({
-  p: xyz(),
-  v: xyz(),
-  a: xyz(),
-  j: xyz(),
-  color: color(0x00880000),
-  step: function(time) {
-    this.p.add(this.v.add(this.a.add(this.j)))
+const camera = (x, y, z, angle, fov) => ({
+  x, y, z, angle, fov,
+  project(v) {
+    return v.sub(this.x, this.y, this.z).rotate(this.angle)
   }
 })
-const projPt = function(p, c) {
-  var x, y
-  
-  return [x, y]
-}
-
-{
-  var then = Date.now()
-  const update = function() {
-    const now = Date.now()
-    const mod = now - then / 1000
-    then = now
-  }
-  const draw = function() {
-    
-  }
-  const main = function() {
-    requestAnimationFrame(main)
-    update()
-    render()
-  }
-} // main stuff
