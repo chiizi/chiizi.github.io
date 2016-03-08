@@ -1,4 +1,6 @@
 const canvas = document.querySelector("canvas")
+var dx = canvas.width = innerWidth
+var dy = canvas.height = innerHeight
 const ctx = canvas.getContext("2d")
 var fov = 200
 
