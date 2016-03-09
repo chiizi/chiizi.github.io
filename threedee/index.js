@@ -1,5 +1,7 @@
-window.onerror = function(e) {
-  alert(e + " " + e.lineNumber);
+window.onerror = function(e, u, l) {
+  alert(`error: ${e}
+URL: ${u}
+line: ${l}`);
 };
 
 var Vertex = function(x, y, z) {
