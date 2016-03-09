@@ -4,6 +4,12 @@ URL: ${u}
 line: ${l}`);
 };
 
+var keysDown = []
+addEventListener("keydown", e =>
+  keysDown[e.keyCode] = true)
+addEventListener("keyup", e =>
+  keysDown[e.keyCode] = false)
+
 var Vertex = function(x, y, z) {
   this.x = parseFloat(x);
   this.y = parseFloat(y);
@@ -82,23 +88,7 @@ function render(objects, ctx, dx, dy) {
 
 (function() {
   // Fix the canvas width and height
-  var canvas = document.querySelector("canvas");
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
-  var dx = canvas.width / 2;
-  var dy = canvas.height / 2;
-
-  // Objects style
-  var ctx = canvas.getContext("2d");
-  ctx.strokeStyle = "rgba(0, 0, 0, 0.3)";
-  ctx.fillStyle = "rgba(0, 150, 255, 0.3)";
-
-  // Create the cube
-  var cube_center = new Vertex(0, 11*dy/10, 0);
-  var other_cube_center = new Vertex(200, 11*dy/10, 0);
-  var cube = new Cube(cube_center, dy);
-  var otherCube = new Cube(other_cube_center, dy);
-  var objects = [cube, otherCube];
+  
 
   // First render
   render(objects, ctx, dx, dy);
@@ -168,4 +158,28 @@ function render(objects, ctx, dx, dy) {
     autorotate_timeout = setTimeout(autorotate, 30);
   }
   autorotate_timeout = setTimeout(autorotate, 2000);
-})();
+});
+
+var canvas = document.querySelector("canvas")
+canvas.width = canvas.offsetWidth
+canvas.height = canvas.offsetHeight
+var dx = canvas.width / 2
+var dy = canvas.height / 2
+// Objects style
+var ctx = canvas.getContext("2d")
+ctx.strokeStyle = "rgba(0, 0, 0, 0.3)"
+ctx.fillStyle = "rgba(0, 150, 255, 0.3)"
+
+// Create the cube
+var cube_center = new Vertex(0, 11*dy/10, 0)
+var other_cube_center = new Vertex(200, 11*dy/10, 0)
+var cube = new Cube(cube_center, dy)
+var otherCube = new Cube(other_cube_center, dy)
+var objects = [cube, otherCube]
+
+function main() {
+  render(objects, ctx, dx, dy)
+  requestAnimationFrame(main)
+}
+
+main()
