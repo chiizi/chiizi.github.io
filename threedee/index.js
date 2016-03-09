@@ -42,9 +42,9 @@ var Cube = function(center, side) {
   ];
 };
 
+var d = 200;
 function project(M) {
   // Distance between the camera and the plane
-  var d = -200;
   var r = d / M.y;
 
   return new Vertex2D(r * M.x, r * M.z);
