@@ -178,8 +178,8 @@ function render(objects, ctx, dx, dy) {
 })
 
 // Create the cube
-var cube_center = new Vertex(0, 0, 11 * dy / 10)
-var other_cube_center = new Vertex(200, 0, 11 * dy / 10)
+var cube_center = new Vertex(0, 11 * dy / 10, 0)
+var other_cube_center = new Vertex(200, 11 * dy / 10, 0)
 var cube = new Cube(cube_center, dy)
 var otherCube = new Cube(other_cube_center, dy)
 var objects = [cube, otherCube]
