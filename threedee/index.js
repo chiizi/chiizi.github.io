@@ -21,31 +21,31 @@ var Cube = function(center, side) {
   var d = side / 2;
 
   this.vertices = [
-        new Vertex(center.x - d, center.y - d, center.z + d),
-        new Vertex(center.x - d, center.y - d, center.z - d),
-        new Vertex(center.x + d, center.y - d, center.z - d),
-        new Vertex(center.x + d, center.y - d, center.z + d),
-        new Vertex(center.x + d, center.y + d, center.z + d),
-        new Vertex(center.x + d, center.y + d, center.z - d),
-        new Vertex(center.x - d, center.y + d, center.z - d),
-        new Vertex(center.x - d, center.y + d, center.z + d)
+    new Vertex(center.x - d, center.y - d, center.z + d),
+    new Vertex(center.x - d, center.y - d, center.z - d),
+    new Vertex(center.x + d, center.y - d, center.z - d),
+    new Vertex(center.x + d, center.y - d, center.z + d),
+    new Vertex(center.x + d, center.y + d, center.z + d),
+    new Vertex(center.x + d, center.y + d, center.z - d),
+    new Vertex(center.x - d, center.y + d, center.z - d),
+    new Vertex(center.x - d, center.y + d, center.z + d)
   ];
 
   // Generate the faces
   this.faces = [
     [this.vertices[0], this.vertices[1], this.vertices[2], this.vertices[3]],
-        [this.vertices[3], this.vertices[2], this.vertices[5], this.vertices[4]],
-        [this.vertices[4], this.vertices[5], this.vertices[6], this.vertices[7]],
-        [this.vertices[7], this.vertices[6], this.vertices[1], this.vertices[0]],
-        [this.vertices[7], this.vertices[0], this.vertices[3], this.vertices[4]],
-        [this.vertices[1], this.vertices[6], this.vertices[5], this.vertices[2]]
+    [this.vertices[3], this.vertices[2], this.vertices[5], this.vertices[4]],
+    [this.vertices[4], this.vertices[5], this.vertices[6], this.vertices[7]],
+    [this.vertices[7], this.vertices[6], this.vertices[1], this.vertices[0]],
+    [this.vertices[7], this.vertices[0], this.vertices[3], this.vertices[4]],
+    [this.vertices[1], this.vertices[6], this.vertices[5], this.vertices[2]]
   ];
 };
 
 function project(M) {
   // Distance between the camera and the plane
-  var d = 100;
-  var r = (d / M.y + 2) / 3;
+  var d = 200;
+  var r = d / M.y;
 
   return new Vertex2D(r * M.x, r * M.z);
 }
@@ -89,9 +89,9 @@ function render(objects, ctx, dx, dy) {
   var dy = canvas.height / 2;
 
   // Objects style
-  var ctx = canvas.getContext('2d');
-  ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
-  ctx.fillStyle = 'rgba(0, 150, 255, 0.3)';
+  var ctx = canvas.getContext("2d");
+  ctx.strokeStyle = "rgba(0, 0, 0, 0.3)";
+  ctx.fillStyle = "rgba(0, 150, 255, 0.3)";
 
   // Create the cube
   var cube_center = new Vertex(0, 11*dy/10, 0);
@@ -108,9 +108,9 @@ function render(objects, ctx, dx, dy) {
   var mx = 0;
   var my = 0;
 
-  canvas.addEventListener('mousedown', initMove);
-  document.addEventListener('mousemove', move);
-  document.addEventListener('mouseup', stopMove);
+  canvas.addEventListener("mousedown", initMove);
+  document.addEventListener("mousemove", move);
+  document.addEventListener("mouseup", stopMove);
 
   // Rotate a vertice
   function rotate(M, center, theta, phi) {
