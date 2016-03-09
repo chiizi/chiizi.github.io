@@ -17,8 +17,8 @@ var dx = canvas.width / 2
 var dy = canvas.height / 2
 // Objects style
 var ctx = canvas.getContext("2d")
-ctx.strokeStyle = "rgba(0, 0, 0, 1)"
-ctx.fillStyle = "rgba(255, 255, 255, 1)"
+ctx.strokeStyle = "rgba(0, 0, 0, 0.3)"
+ctx.fillStyle = "rgba(0, 150, 255, 0.3)"
 
 var player = {
   x: 0,
@@ -92,10 +92,10 @@ function render(objects, ctx, dx, dy) {
     object.faces.forEach(face => {
       var P = project(face[0])
       ctx.beginPath()
-      ctx.moveTo(P.x + dx, -P.y + dy)
+      ctx.moveTo(P.x + dx, P.z + dy)
       face.slice[1].forEach(() => {
         P = project(face[k])
-        ctx.lineTo(P.x + dx, -P.y + dy)
+        ctx.lineTo(P.x + dx, P.z + dy)
       })
       ctx.closePath()
       ctx.stroke()
