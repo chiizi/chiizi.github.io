@@ -17,8 +17,8 @@ var dx = canvas.width / 2
 var dy = canvas.height / 2
 // Objects style
 var ctx = canvas.getContext("2d")
-ctx.strokeStyle = "rgba(0, 0, 0, 0.3)"
-ctx.fillStyle = "rgba(0, 150, 255, 0.3)"
+ctx.strokeStyle = "rgba(0, 0, 0, 1)"
+ctx.fillStyle = "rgba(255, 255, 255, 1)"
 
 var player = {
   x: 0,
