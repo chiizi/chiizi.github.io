@@ -1,5 +1,5 @@
 window.onerror = function(e) {
-  alert(e);
+  alert(e + " " + e.lineNumber);
 };
 
 var Vertex = function(x, y, z) {
