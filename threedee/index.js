@@ -81,9 +81,9 @@ var Cube = function(center, side) {
 var d = 200
 function project(M) {
   // Distance between the camera and the plane
-  var r = d / M.y
+  var r = d / M.z
 
-  return new Vertex2D(r * M.x, r * M.z)
+  return new Vertex2D(r * M.x, r * M.y)
 }
 function render(objects, ctx, dx, dy) {
   ctx.clearRect(0, 0, 2 * dx, 2 * dy)
@@ -92,10 +92,10 @@ function render(objects, ctx, dx, dy) {
     object.faces.forEach(face => {
       var P = project(face[0])
       ctx.beginPath()
-      ctx.moveTo(P.x + dx, -P.y + dy)
+      ctx.moveTo(P.x + dx, P.z + dy)
       face.slice[1].forEach(() => {
         P = project(face[k])
-        ctx.lineTo(P.x + dx, -P.y + dy)
+        ctx.lineTo(P.x + dx, P.z + dy)
       })
       ctx.closePath()
       ctx.stroke()
@@ -178,8 +178,8 @@ function render(objects, ctx, dx, dy) {
 })
 
 // Create the cube
-var cube_center = new Vertex(0, 11 * dy / 10, 0)
-var other_cube_center = new Vertex(200, 11 * dy / 10, 0)
+var cube_center = new Vertex(0, 0, -11 * dy / 10)
+var other_cube_center = new Vertex(200, 0, -11 * dy / 10)
 var cube = new Cube(cube_center, dy)
 var otherCube = new Cube(other_cube_center, dy)
 var objects = [cube, otherCube]
