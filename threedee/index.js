@@ -124,7 +124,6 @@ function render(objects, ctx, dx, dy) {
 
 (function() {
   // Fix the canvas width and height
-  var canvas = document.getElementById('cnv');
   canvas.width = canvas.offsetWidth;
   canvas.height = canvas.offsetHeight;
   var dx = canvas.width / 2;
