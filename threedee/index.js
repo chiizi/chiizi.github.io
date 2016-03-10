@@ -110,17 +110,6 @@ function render(objects, ctx, dx, dy) {
 }
 
 /*(function() {
-  // Fix the canvas width and height
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
-  var dx = canvas.width / 2;
-  var dy = canvas.height / 2;
-
-  // Objects style
-  var ctx = canvas.getContext('2d');
-  ctx.strokeStyle = '#000';
-  ctx.fillStyle = '#FFF';
-  ctx.lineWidth = 6;
 
   // Create the cube
   var cube_center = new Vertex(0, 11*dy/10, 0);
@@ -198,10 +187,14 @@ function render(objects, ctx, dx, dy) {
   autorotate_timeout = setTimeout(autorotate, 2000);
 })();*/
 
-function main() {
+var cube_center = new Vertex(0, 11 * dy / 10, 0)
+var cube = new Cube(cube_center, dy)
+var objects = [cube]
+
+var main = objects => () => {
   update(objects)
   render(objects, ctx, dx, dy)
-  requestAnimationFrame(main)
+  requestAnimationFrame(main(objects))
 }
 
-main()
+main(objects)()
