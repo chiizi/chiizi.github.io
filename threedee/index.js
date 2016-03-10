@@ -15,10 +15,10 @@ canvas.width = canvas.offsetWidth
 canvas.height = canvas.offsetHeight
 var dx = canvas.width / 2
 var dy = canvas.height / 2
-// Objects style
 var ctx = canvas.getContext("2d")
-ctx.strokeStyle = "rgba(0, 0, 0, 0.3)"
-ctx.fillStyle = "rgba(0, 150, 255, 0.3)"
+ctx.strokeStyle = "#000"
+ctx.fillStyle = "#FFF"
+ctx.lineWidth = 10
 
 var player = {
   x: 0,
@@ -49,80 +49,67 @@ var vertex = (x, y, z) => ({
 var vertex2D = (x, y) => ({
   x, y
 })
-var cube = (center, side) => (d => ({
-  center,
+var line = (...a) => ({
+  va: vertex(...a),
+  vb: vertex(...a.slice(3))
+})
+var cube = (c, side) => (d => ({
+  center: c,
   vertices: [
-    new Vertex(center.x - d, center.y - d, center.z + d),
-    new Vertex(center.x - d, center.y - d, center.z - d),
-    new Vertex(center.x + d, center.y - d, center.z - d),
-    new Vertex(center.x + d, center.y - d, center.z + d),
-    new Vertex(center.x + d, center.y + d, center.z + d),
-    new Vertex(center.x + d, center.y + d, center.z - d),
-    new Vertex(center.x - d, center.y + d, center.z - d),
-    new Vertex(center.x - d, center.y + d, center.z + d)
+    vertex(c.x - d, c.y - d, c.z + d),
+    vertex(c.x - d, c.y - d, c.z - d),
+    vertex(c.x + d, c.y - d, c.z - d),
+    vertex(c.x + d, c.y - d, c.z + d),
+    vertex(c.x + d, c.y + d, c.z + d),
+    vertex(c.x + d, c.y + d, c.z - d),
+    vertex(c.x - d, c.y + d, c.z - d),
+    vertex(c.x - d, c.y + d, c.z + d)
+  ],
+  lines: [
+    line(c.x - d, c.y - d, c.z - d, c.x + d, c.y - d, c.z - d),
+    line(c.x - d, c.y - d, c.z - d, c.x - d, c.y - d, c.z + d),
+    line(c.x - d, c.y - d, c.z - d, c.x - d, c.y + d, c.z - d),
+    line(c.x + d, c.y - d, c.z - d, c.x + d, c.y - d, c.z + d),
+    line(c.x + d, c.y - d, c.z - d, c.x + d, c.y + d, c.z - d),
+    line(c.x - d, c.y - d, c.z + d, c.x - d, c.y + d, c.z + d),
+    line(c.x - d, c.y - d, c.z + d, c.x + d, c.y - d, c.z + d),
+    line(c.x + d, c.y - d, c.z + d, c.x + d, c.y + d, c.z + d),
+    line(c.x - d, c.y + d, c.z - d, c.x + d, c.y + d, c.z - d),
+    line(c.x - d, c.y + d, c.z - d, c.x - d, c.y + d, c.z + d),
+    line(c.x + d, c.y + d, c.z - d, c.x + d, c.y + d, c.z + d),
+    line(c.x - d, c.y + d, c.z + d, c.x + d, c.y + d, c.z + d)
   ]
 }))(side / 2)
 
 var d = 200
-var project = M => (r => vertex2D(r * M.x, r * M.z))(d / M.y)
+var project = M => (r => r * M.x, r * M.z)(d / M.y)
 
-var Vertex = function(x, y, z) {
-  this.x = parseFloat(x);
-  this.y = parseFloat(y);
-  this.z = parseFloat(z);
-};
-
-var Vertex2D = function(x, y) {
-  this.x = parseFloat(x);
-  this.y = parseFloat(y);
-};
-
-var Cube = function(center, side) {
-  // Generate the vertices
-  var d = side / 2;
-
-  this.vertices = [
-        new Vertex(center.x - d, center.y - d, center.z + d),
-        new Vertex(center.x - d, center.y - d, center.z - d),
-        new Vertex(center.x + d, center.y - d, center.z - d),
-        new Vertex(center.x + d, center.y - d, center.z + d),
-        new Vertex(center.x + d, center.y + d, center.z + d),
-        new Vertex(center.x + d, center.y + d, center.z - d),
-        new Vertex(center.x - d, center.y + d, center.z - d),
-        new Vertex(center.x - d, center.y + d, center.z + d)
-  ];
-};
-
-function project(M) {
-  // Distance between the camera and the plane
-  var d = 200;
-  var r = d / M.y;
-
-  return new Vertex2D(r * M.x, r * M.z);
+function update(objects) {
+  
 }
 
 function render(objects, ctx, dx, dy) {
   // Clear the previous frame
   ctx.clearRect(0, 0, 2*dx, 2*dy);
 
-  // For each object
-  for (var i = 0, n_obj = objects.length; i < n_obj; ++i) {
-    // For each point
-    for (var j = 0, n_vertices = objects[i].vertices.length; j < n_vertices; ++j) {
-      // Current face
-      var vertex = objects[i].vertices[j];
-      P = project(vertex);
+  objects.forEach(o => {
+    if (o.vertices || false) o.vertices.forEach(v => {
+      var P = project(v)
       ctx.fillRect(P.x + dx - 5, -P.y + dy - 5, 10, 10)
-
-      // Close the path and draw the face
-      ctx.closePath();
-      ctx.stroke();
-      ctx.fill();
-    }
-  }
+    })
+    if (o.lines || false) o.lines.forEach(l => {
+      var P = project(l.va)
+      ctx.moveTo(P.x + dx, dy - P.y)
+      P = project(l.vb)
+      ctx.lineTo(P.x + dx, dy - P.y)
+      
+      ctx.closePath()
+      ctx.stroke()
+    })
+  })
 }
 
-(function() {
+/*(function() {
   // Fix the canvas width and height
   canvas.width = canvas.offsetWidth;
   canvas.height = canvas.offsetHeight;
@@ -209,7 +196,7 @@ function render(objects, ctx, dx, dy) {
     autorotate_timeout = setTimeout(autorotate, 30);
   }
   autorotate_timeout = setTimeout(autorotate, 2000);
-})();
+})();*/
 
 function main() {
   update(objects)
@@ -217,4 +204,4 @@ function main() {
   requestAnimationFrame(main)
 }
 
-//main()
+main()
