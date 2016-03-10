@@ -121,10 +121,6 @@ function render(objects, ctx, dx, dy) {
   ctx.clearRect(0, 0, 2*dx, 2*dy);
 
   objects.forEach(o => {
-    if (o.vertices || false) o.vertices.forEach(v => {
-      var P = project(v)
-      ctx.fillRect(P.x + dx - 5, -P.y + dy - 5, 10, 10)
-    })
     if (o.lines || false) o.lines.forEach(l => {
       var P = project(l.va)
       ctx.moveTo(P.x + dx, dy - P.y)
@@ -133,6 +129,10 @@ function render(objects, ctx, dx, dy) {
       
       ctx.closePath()
       ctx.stroke()
+    })
+    else if (o.vertices || false) o.vertices.forEach(v => {
+      var P = project(v)
+      ctx.fillRect(P.x + dx - 5, -P.y + dy - 5, 10, 10)
     })
   })
 }
