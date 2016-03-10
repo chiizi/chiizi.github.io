@@ -43,27 +43,55 @@ var player = {
   }
 }
 
-var vertex = (x, y, z) => ({
-  x, y, z
+var vertex = (x, y, z) => Object.assign([x, y, z], {
+  set x(v) {
+    return this[0] = v
+  },
+  get x() {
+    return this[0]
+  },
+  set y(v) {
+    return this[1] = v
+  },
+  get y() {
+    return this[1]
+  },
+  set z(v) {
+    return this[2] = v
+  },
+  get z() {
+    return this[2]
+  }
 })
-var vertex2D = (x, y) => ({
-  x, y
+var vertex2D = (x, y) => Object.assign([x, y], {
+  set x(v) {
+    return this[0] = v
+  },
+  get x() {
+    return this[0]
+  },
+  set y(v) {
+    return this[1] = v
+  },
+  get y() {
+    return this[1]
+  }
 })
 var line = (...a) => ({
   va: vertex(...a),
   vb: vertex(...a.slice(3))
 })
-var cube = (c, side) => (d => ({
-  center: c,
+var cube = (x, y, z, side) => (d => ({
+  center: vertex(x, y, z),
   vertices: [
-    vertex(c.x - d, c.y - d, c.z + d),
-    vertex(c.x - d, c.y - d, c.z - d),
-    vertex(c.x + d, c.y - d, c.z - d),
-    vertex(c.x + d, c.y - d, c.z + d),
-    vertex(c.x + d, c.y + d, c.z + d),
-    vertex(c.x + d, c.y + d, c.z - d),
-    vertex(c.x - d, c.y + d, c.z - d),
-    vertex(c.x - d, c.y + d, c.z + d)
+    vertex(x - d, y - d, z + d),
+    vertex(x - d, y - d, z - d),
+    vertex(x + d, y - d, z - d),
+    vertex(x + d, y - d, z + d),
+    vertex(x + d, y + d, z + d),
+    vertex(x + d, y + d, z - d),
+    vertex(x - d, y + d, z - d),
+    vertex(x - d, y + d, z + d)
   ],
   lines: [
     line(c.x - d, c.y - d, c.z - d, c.x + d, c.y - d, c.z - d),
@@ -187,8 +215,8 @@ function render(objects, ctx, dx, dy) {
   autorotate_timeout = setTimeout(autorotate, 2000);
 })();*/
 
-var cube_center = new Vertex(0, 11 * dy / 10, 0)
-var cube = new Cube(cube_center, dy)
+var cube_center = vertex(0, 11 * dy / 10, 0)
+var cube = cube(...cube_center, dy)
 var objects = [cube]
 
 var main = objects => () => {
