@@ -110,7 +110,7 @@ var cube = (x, y, z, side) => (d => ({
 }))(side / 2)
 
 var d = 200
-var project = M => (r => r * M.x, r * M.z)(d / M.y)
+var project = M => (r => vertex2D(r * M.x, r * M.z))(d / M.y)
 
 function update(objects) {
   
