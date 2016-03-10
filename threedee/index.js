@@ -94,18 +94,18 @@ var cube = (x, y, z, side) => (d => ({
     vertex(x - d, y + d, z + d)
   ],
   lines: [
-    line(c.x - d, c.y - d, c.z - d, c.x + d, c.y - d, c.z - d),
-    line(c.x - d, c.y - d, c.z - d, c.x - d, c.y - d, c.z + d),
-    line(c.x - d, c.y - d, c.z - d, c.x - d, c.y + d, c.z - d),
-    line(c.x + d, c.y - d, c.z - d, c.x + d, c.y - d, c.z + d),
-    line(c.x + d, c.y - d, c.z - d, c.x + d, c.y + d, c.z - d),
-    line(c.x - d, c.y - d, c.z + d, c.x - d, c.y + d, c.z + d),
-    line(c.x - d, c.y - d, c.z + d, c.x + d, c.y - d, c.z + d),
-    line(c.x + d, c.y - d, c.z + d, c.x + d, c.y + d, c.z + d),
-    line(c.x - d, c.y + d, c.z - d, c.x + d, c.y + d, c.z - d),
-    line(c.x - d, c.y + d, c.z - d, c.x - d, c.y + d, c.z + d),
-    line(c.x + d, c.y + d, c.z - d, c.x + d, c.y + d, c.z + d),
-    line(c.x - d, c.y + d, c.z + d, c.x + d, c.y + d, c.z + d)
+    line(x - d, y - d,  - d, x + d, y - d, z - d),
+    line(x - d, y - d,  - d, x - d, y - d, z + d),
+    line(x - d, y - d,  - d, x - d, y + d, z - d),
+    line(x + d, y - d,  - d, x + d, y - d, z + d),
+    line(x + d, y - d,  - d, x + d, y + d, z - d),
+    line(x - d, y - d,  + d, x - d, y + d, z + d),
+    line(x - d, y - d,  + d, x + d, y - d, z + d),
+    line(x + d, y - d,  + d, x + d, y + d, z + d),
+    line(x - d, y + d,  - d, x + d, y + d, z - d),
+    line(x - d, y + d,  - d, x - d, y + d, z + d),
+    line(x + d, y + d,  - d, x + d, y + d, z + d),
+    line(x - d, y + d,  + d, x + d, y + d, z + d)
   ]
 }))(side / 2)
 
