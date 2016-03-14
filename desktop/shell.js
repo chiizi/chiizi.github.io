@@ -37,6 +37,7 @@ var shellFn = function(t) {
     _$(t.elem)(".uname").innerHTML = uname;
     _$(t.elem)(".hname").innerHTML = hname;
     _$(t.elem)(".dir").innerHTML = dir == `/home/${uname}` ? "~" : dir;
+    if ()
     switch (e.keyCode) {
       case (16): {
         shift = true;
@@ -88,9 +89,12 @@ var shellFn = function(t) {
     e.preventDefault();
   };
   kd({keyCode: null, preventDefault: () => null});
-
+  
   $e(t.elem)("keydown")(kd);
-
+  $e(t.elem)("keyup")(e => e.keyCode == 16
+    ? shift = true
+    : null)
+  
   setInterval(() =>
     _$(t.elem)(".caret").classList.toggle("inv"), 500);
 };
