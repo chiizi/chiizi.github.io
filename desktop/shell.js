@@ -76,6 +76,11 @@ var shellFn = function(t) {
         position++;
         break;
       }
+      case (220): {
+        content = content.substr(0, position) + "|" + content.substr(position);
+        position++;
+        break;
+      }
       case (222): {
         content = content.substr(0, position) + "\"" + content.substr(position);
         position++;
@@ -97,7 +102,7 @@ var shellFn = function(t) {
       content = content.substr(0, position) + String.fromCharCode(e.keyCode - 144) + content.substr(position);
       position++;
     }
-    if (~[219, 221].indexOf(e.keyCode)) {
+    if (~[221].indexOf(e.keyCode)) {
       content = content.substr(0, position) + String.fromCharCode(e.keyCode - 128) + content.substr(position);
       position++;
     }
