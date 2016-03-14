@@ -1,3 +1,9 @@
+window.onerror = function(e, u, l) {
+  alert(`error: ${e}
+URL: ${u}
+line: ${l}`)
+}
+
 "slice map forEach".split(" ").forEach(k => Object.prototype[k] = Array.prototype[k]);
 var $N = tag => o => (e => ((o.children !== undefined
   ? (o.children.map(c => e.appendChild(c)), delete o.children)
