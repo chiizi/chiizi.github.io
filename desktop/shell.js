@@ -92,7 +92,7 @@ var shellFn = function(t) {
   
   $e(t.elem)("keydown")(kd);
   $e(t.elem)("keyup")(e => e.keyCode == 16
-    ? shift = true
+    ? shift = false
     : null)
   
   setInterval(() =>
