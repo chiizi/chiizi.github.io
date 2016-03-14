@@ -32,11 +32,16 @@ var shellFn = function(t) {
   t.elem.style.backgroundColor = "#001";
   _$(t.elem)(".wintop").style.backgroundColor = "#223";
   _$$(t.elem)(".wintop .icon").map(e => e.style.backgroundColor = "#334");
+  var shift = false;
   var kd = e => {
     _$(t.elem)(".uname").innerHTML = uname;
     _$(t.elem)(".hname").innerHTML = hname;
     _$(t.elem)(".dir").innerHTML = dir == `/home/${uname}` ? "~" : dir;
     switch (e.keyCode) {
+      case (16): {
+        shift = true;
+        break;
+      }
       case (13): {
         _$(t.elem)(".lines").insertBefore($N("div")({
           className: "line",
@@ -61,7 +66,7 @@ var shellFn = function(t) {
       }
     }
     if (e.keyCode >= 65 && e.keyCode <= 90) {
-      content = content.substr(0, position) + String.fromCharCode(e.keyCode + 32) + content.substr(position);
+      content = content.substr(0, position) + String.fromCharCode(e.keyCode + (shift ? 0 : 32)) + content.substr(position);
       position++;
     }
     if (~[32].indexOf(e.keyCode) || (e.keyCode >= 48 && e.keyCode <= 57)) {
