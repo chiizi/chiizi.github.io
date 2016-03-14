@@ -102,7 +102,7 @@ var shellFn = function(t) {
       content = content.substr(0, position) + String.fromCharCode(e.keyCode - 144) + content.substr(position);
       position++;
     }
-    if (~[221].indexOf(e.keyCode)) {
+    if (~[].indexOf(e.keyCode)) {
       content = content.substr(0, position) + String.fromCharCode(e.keyCode - 128) + content.substr(position);
       position++;
     }
