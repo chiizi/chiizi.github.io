@@ -61,6 +61,26 @@ var shellFn = function(t) {
         position++;
         break;
       }
+      case (186): {
+        content = content.substr(0, position) + ":" + content.substr(position);
+        position++;
+        break;
+      }
+      case (192): {
+        content = content.substr(0, position) + "~" + content.substr(position);
+        position++;
+        break;
+      }
+      case (219): {
+        content = content.substr(0, position) + "()" + content.substr(position);
+        position++;
+        break;
+      }
+      case (222): {
+        content = content.substr(0, position) + "\"" + content.substr(position);
+        position++;
+        break;
+      }
       default: {
         break;
       }
