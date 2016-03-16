@@ -16,10 +16,10 @@ var _$$ = e => q => e.querySelectorAll(q);
 var $e = q => e => f => q.addEventListener(e, f);
 var $$e = q => e => f => $$(q).map(g => g.addEventListener(e, f));
 var $A = p => c => p.appendChild(c);
-var Sto = k => (...a) => a.length
+var Sto = (k, ...a) => a.length
   ? localStorage.setItem(k, a[0])
   : localStorage.getItem(k);
-var Ses = k => (...a) => a.length
+var Ses = (k, ...a) => a.length
   ? sessionStorage.setItem(k, a[0])
   : sessionStorage.getItem(k);
 
