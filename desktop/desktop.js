@@ -16,6 +16,12 @@ var _$$ = e => q => e.querySelectorAll(q);
 var $e = q => e => f => q.addEventListener(e, f);
 var $$e = q => e => f => $$(q).map(g => g.addEventListener(e, f));
 var $A = p => c => p.appendChild(c);
+var Sto = k => (...a) => a.length
+  ? localStorage.setItem(k, a[0])
+  : localStorage.getItem(k);
+var Ses = k => (...a) => a.length
+  ? sessionStorage.setItem(k, a[0])
+  : sessionStorage.getItem(k);
 
 var div = $N("div");
 
@@ -33,8 +39,11 @@ var gotten = [];
 
 var tabIndex = 0;
 
-var uname = "j-doe";
-var hname = "glass";
+if (!Sto("init")) {
+  Sto("uname", "j-doe");
+  Sto("hname", "glass");
+  Sto("init", 1);
+}
 
 document.documentElement.addEventListener("click", () =>
   document.documentElement.webkitRequestFullscreen());
