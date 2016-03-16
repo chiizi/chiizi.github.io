@@ -24,7 +24,7 @@ var Shell = new WindowTemp({
 });
 
 var shellFn = function(t) {
-  var dir = `/home/${uname}`;
+  var dir = `/home/${Sto("uname")}`;
   var content = "";
   var contentF = () => content.split("").map(e => e == " " ? "&nbsp;" : e);
   var position = 0;
@@ -34,9 +34,9 @@ var shellFn = function(t) {
   _$$(t.elem)(".wintop .icon").map(e => e.style.backgroundColor = "#334");
   var shift = false;
   var kd = e => {
-    _$(t.elem)(".uname").innerHTML = uname;
-    _$(t.elem)(".hname").innerHTML = hname;
-    _$(t.elem)(".dir").innerHTML = dir == `/home/${uname}` ? "~" : dir;
+    _$(t.elem)(".uname").innerHTML = Sto("uname");
+    _$(t.elem)(".hname").innerHTML = Sto("hname");
+    _$(t.elem)(".dir").innerHTML = dir == `/home/${Sto("uname")}` ? "~" : dir;
     switch (e.keyCode) {
       case (16): {
         shift = true;
@@ -45,7 +45,7 @@ var shellFn = function(t) {
       case (13): {
         _$(t.elem)(".lines").insertBefore($N("div")({
           className: "line",
-          innerHTML: `[${uname}@${hname} ${dir.replace(new RegExp(`^/home/${uname}`), "~") ? "~" : dir}] $ ${contentF().join("")}`
+          innerHTML: `[${Sto("uname")}@${Sto("hname")} ${dir.replace(new RegExp(`^/home/${Sto("uname")}`), "~") ? "~" : dir}] $ ${contentF().join("")}`
         }), _$(t.elem)(".in"));
         content = "";
       }
