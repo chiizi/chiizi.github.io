@@ -23,6 +23,12 @@ var Shell = new WindowTemp({
   })]
 });
 
+var commands = [
+  {
+    checker: /^cd [A-Za-z,./~]/
+  }
+]
+
 var shellFn = function(t) {
   var dir = `/home/${Sto("uname")}`;
   var content = "";
@@ -66,6 +72,11 @@ var shellFn = function(t) {
         position++;
         break;
       }
+      case (191): {
+        content = content.substr(0, position) + shift ? "?" : "/" + content.substr(position);
+        position++;
+        break;
+      }
       case (192): {
         content = content.substr(0, position) + "~" + content.substr(position);
         position++;
@@ -98,7 +109,7 @@ var shellFn = function(t) {
       content = content.substr(0, position) + String.fromCharCode(e.keyCode) + content.substr(position);
       position++;
     }
-    if (~[188, 190, 191].indexOf(e.keyCode)) {
+    if (~[188, 190].indexOf(e.keyCode)) {
       content = content.substr(0, position) + String.fromCharCode(e.keyCode - 144) + content.substr(position);
       position++;
     }
