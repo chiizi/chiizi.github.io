@@ -56,7 +56,10 @@ var shellFn = function(t) {
         content = "";
       }
       case (8): {
-        content = content.substr(0, position - 1) + content.substr(position);
+        if (~["()", "[]"].indexOf(content.substr(position, position + 1)))
+          content = content.substr(0, position - 1) + content.substr(position + 1);
+        else
+          content = content.substr(0, position - 1) + content.substr(position);
         // fall through
       }
       case (37): {
