@@ -71,7 +71,7 @@ var _windowTemp = function (metaOptions) {
         ret.maximize()
       if (e.clientX >= 0 && e.clientY >= 0 && e.clientX < innerWidth && e.clientY < innerHeight - 49) {
         elem.style.left = ret.log.x = e.clientX - offX + "px"
-        elem.style.top = this.log.y = e.clientY - offY + "px"
+        elem.style.top = ret.log.y = e.clientY - offY + "px"
       }
     }
     var offX
@@ -122,40 +122,42 @@ var _windowTemp = function (metaOptions) {
       ]
     })
     var log = () => {
-      this.log.x = elem.clientX
-      this.log.y = elem.clientY
-      this.log.w = elem.clientWidth
-      this.log.h = elem.clientHeight
+      log.x = elem.clientX
+      log.y = elem.clientY
+      log.w = elem.clientWidth
+      log.h = elem.clientHeight
     }
+    log()
+    
     var ret = {
       mode,
       id,
       title,
       elem,
       toTop() {
-        this.trayListing.toTop()
-        this.elem.classList.remove("hidden")
-        $(".window-layer").appendChild(this.elem)
+        trayListing.toTop()
+        elem.classList.remove("hidden")
+        $(".window-layer").appendChild(elem)
       },
       maximize() {
-        if (this.elem.classList.contains("maximized")) {
-          this.elem.classList.remove("maximized")
-          this.elem.style.left = `${ this.log.x }px`
-          this.elem.style.top = `${ this.log.y }px`
-          this.elem.style.width = this.log.w
-          this.elem.style.height = this.log.h
+        if (elem.classList.contains("maximized")) {
+          elem.classList.remove("maximized")
+          elem.style.left = `${ log.x }px`
+          elem.style.top = `${ log.y }px`
+          elem.style.width = log.w
+          elem.style.height = log.h
         } else {
-          this.log()
-          this.elem.classList.add("maximized")
-          this.elem.style.top = `0`
-          this.elem.style.left = `0`
-          this.elem.style.width = innerWidth - 1
-          this.elem.style.height = innerHeight - 50
+          log()
+          elem.classList.add("maximized")
+          elem.style.top = `0`
+          elem.style.left = `0`
+          elem.style.width = innerWidth - 1
+          elem.style.height = innerHeight - 50
         }
       },
       close() {
-        $(".window-layer").removeChild(this.elem)
-        $(".side-tray").removeChild(this.trayListing.elem)
+        $(".window-layer").removeChild(elem)
+        $(".side-tray").removeChild(trayListing.elem)
       },
       get group() {
         return metaOptions.group
@@ -169,7 +171,8 @@ var _windowTemp = function (metaOptions) {
       _$(elem)(".max").addEventListener("click", ret.maximize.bind(ret))
     if (_$(elem)(".close"))
       _$(elem)(".close").addEventListener("mouseup", ret.close.bind(ret))
-    ret.trayListing = _trayListing(ret)
+    var trayListing = _trayListing(ret)
+    ret.trayListing = trayListing
     ret.trayListing.toTop()
     metaOptions.onmake(ret)
     ret.get = id => _$(".window-layer")(`#win-${ metaOptions.group }-${ id }`)
