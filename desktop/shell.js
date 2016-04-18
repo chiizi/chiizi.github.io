@@ -73,7 +73,7 @@ var shellFn = function(t) {
         break;
       }
       case (191): {
-        content = content.substr(0, position) + shift ? "?" : "/" + content.substr(position);
+        content = content.substr(0, position) + (shift ? "?" : "/") + content.substr(position);
         position++;
         break;
       }
