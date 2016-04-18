@@ -58,6 +58,8 @@ var shellFn = function(t) {
       case (8): {
         if (~["()", "[]"].indexOf(content.substr(position - 1, position)))
           content = content.substr(0, position - 1) + content.substr(position + 1);
+        else if (~["()", "[]"].indexOf(content.substr(position - 3, position - 1)))
+          content = content.substr(0, position - 3) + content.substr(position - 1);
         else
           content = content.substr(0, position - 1) + content.substr(position);
         // fall through
