@@ -92,6 +92,11 @@ var shellFn = function(t) {
         position++;
         break;
       }
+      case (221): {
+        content = content.substr(0, position) + "[]" + content.substr(position);
+        position++;
+        break;
+      }
       case (222): {
         content = content.substr(0, position) + "\"" + content.substr(position);
         position++;
