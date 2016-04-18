@@ -56,121 +56,125 @@ var _trayListing = function (win) {
 }
 var _windowTemp = function (metaOptions) {
   var mode = (metaOptions.mode || "elm.min").split(".")
-  var md = e => {
-    offX = e.clientX - parseInt(elem.offsetLeft)
-    offY = e.clientY - parseInt(elem.offsetTop)
-    addEventListener("mousemove", mm, true)
-    addEventListener("mouseup", mu, true)
-  }
-  var mu = () => {
-    removeEventListener("mousemove", mm, true)
-  }
-  var mm = e => {
-    if (elem.classList.contains("maximized"))
-      ret.maximize()
-    if (e.clientX >= 0 && e.clientY >= 0 && e.clientX < innerWidth && e.clientY < innerHeight - 49) {
-      elem.style.left = ret.log.x = e.clientX - offX + "px"
-      elem.style.top = this.log.y = e.clientY - offY + "px"
+  return options => {
+    var md = e => {
+      offX = e.clientX - parseInt(elem.offsetLeft)
+      offY = e.clientY - parseInt(elem.offsetTop)
+      addEventListener("mousemove", mm, true)
+      addEventListener("mouseup", mu, true)
     }
-  }
-  var offX
-  var offY
-  var id = options.id
-  var title = options.title
-  var elem = div({
-    id: `win-${ metaOptions.group }-${ options.id }`,
-    className: "win",
-    tabIndex: tabIndex++,
-    children: [
-      div({
-        className: "wintop",
-        title: options.title || "untitled",
-        children: [
-          div({
-            className: "left",
-            children: mode[0] == "win" ? mode[1] == "web" ? [
-              div({ className: "icon reload" }),
-              div({ className: "icon back" })
-            ] : mode[1] == "std" ? [div({ className: "icon reload" })] : [] : mode[0] == "osx" ? [
-              div({ className: "icon close" }),
-              div({ className: "icon max" }),
-              div({ className: "icon hide" })
-            ] : mode[1] == "web" ? [
-              div({ className: "icon hide" }),
-              div({ className: "icon reload" }),
-              div({ className: "icon back" })
-            ] : mode[1] == "std" ? [
-              div({ className: "icon hide" }),
-              div({ className: "icon reload" })
-            ] : [div({ className: "icon hide" })]
-          }),
-          div({
-            className: "right",
-            children: mode[0] == "win" ? [
-              div({ className: "icon hide" }),
-              div({ className: "icon max" }),
-              div({ className: "icon close" })
-            ] : mode[0] == "osx" ? [] : [div({ className: "icon max" })]
-          })
-        ]
-      }),
-      div({
-        className: "content",
-        children: metaOptions.content(options)
-      })
-    ]
-  })
-  var log = () => {
-    this.log.x = elem.clientX
-    this.log.y = elem.clientY
-    this.log.w = elem.clientWidth
-    this.log.h = elem.clientHeight
-  }
-  var ret = {
-    mode, id, title, elem,
-    toTop() {
-      this.trayListing.toTop()
-      this.elem.classList.remove("hidden")
-      $(".window-layer").appendChild(this.elem)
-    },
-    maximize() {
-      if (this.elem.classList.contains("maximized")) {
-        this.elem.classList.remove("maximized")
-        this.elem.style.left = `${ this.log.x }px`
-        this.elem.style.top = `${ this.log.y }px`
-        this.elem.style.width = this.log.w
-        this.elem.style.height = this.log.h
-      } else {
-        this.log()
-        this.elem.classList.add("maximized")
-        this.elem.style.top = `0`
-        this.elem.style.left = `0`
-        this.elem.style.width = innerWidth - 1
-        this.elem.style.height = innerHeight - 50
+    var mu = () => {
+      removeEventListener("mousemove", mm, true)
+    }
+    var mm = e => {
+      if (elem.classList.contains("maximized"))
+        ret.maximize()
+      if (e.clientX >= 0 && e.clientY >= 0 && e.clientX < innerWidth && e.clientY < innerHeight - 49) {
+        elem.style.left = ret.log.x = e.clientX - offX + "px"
+        elem.style.top = this.log.y = e.clientY - offY + "px"
       }
-    },
-    close() {
-      $(".window-layer").removeChild(this.elem)
-      $(".side-tray").removeChild(this.trayListing.elem)
-    },
-    get group() {
-      return metaOptions.group
     }
+    var offX
+    var offY
+    var id = options.id
+    var title = options.title
+    var elem = div({
+      id: `win-${ metaOptions.group }-${ options.id }`,
+      className: "win",
+      tabIndex: tabIndex++,
+      children: [
+        div({
+          className: "wintop",
+          title: options.title || "untitled",
+          children: [
+            div({
+              className: "left",
+              children: mode[0] == "win" ? mode[1] == "web" ? [
+                div({ className: "icon reload" }),
+                div({ className: "icon back" })
+              ] : mode[1] == "std" ? [div({ className: "icon reload" })] : [] : mode[0] == "osx" ? [
+                div({ className: "icon close" }),
+                div({ className: "icon max" }),
+                div({ className: "icon hide" })
+              ] : mode[1] == "web" ? [
+                div({ className: "icon hide" }),
+                div({ className: "icon reload" }),
+                div({ className: "icon back" })
+              ] : mode[1] == "std" ? [
+                div({ className: "icon hide" }),
+                div({ className: "icon reload" })
+              ] : [div({ className: "icon hide" })]
+            }),
+            div({
+              className: "right",
+              children: mode[0] == "win" ? [
+                div({ className: "icon hide" }),
+                div({ className: "icon max" }),
+                div({ className: "icon close" })
+              ] : mode[0] == "osx" ? [] : [div({ className: "icon max" })]
+            })
+          ]
+        }),
+        div({
+          className: "content",
+          children: metaOptions.content(options)
+        })
+      ]
+    })
+    var log = () => {
+      this.log.x = elem.clientX
+      this.log.y = elem.clientY
+      this.log.w = elem.clientWidth
+      this.log.h = elem.clientHeight
+    }
+    var ret = {
+      mode,
+      id,
+      title,
+      elem,
+      toTop() {
+        this.trayListing.toTop()
+        this.elem.classList.remove("hidden")
+        $(".window-layer").appendChild(this.elem)
+      },
+      maximize() {
+        if (this.elem.classList.contains("maximized")) {
+          this.elem.classList.remove("maximized")
+          this.elem.style.left = `${ this.log.x }px`
+          this.elem.style.top = `${ this.log.y }px`
+          this.elem.style.width = this.log.w
+          this.elem.style.height = this.log.h
+        } else {
+          this.log()
+          this.elem.classList.add("maximized")
+          this.elem.style.top = `0`
+          this.elem.style.left = `0`
+          this.elem.style.width = innerWidth - 1
+          this.elem.style.height = innerHeight - 50
+        }
+      },
+      close() {
+        $(".window-layer").removeChild(this.elem)
+        $(".side-tray").removeChild(this.trayListing.elem)
+      },
+      get group() {
+        return metaOptions.group
+      }
+    }
+    elem.addEventListener("mousedown", ret.toTop.bind(ret))
+    _$(elem)(".wintop").addEventListener("mousedown", md, true)
+    if (_$(elem)(".hide"))
+      _$(elem)(".hide").addEventListener("click", () => elem.classList.add("hidden"))
+    if (_$(elem)(".max"))
+      _$(elem)(".max").addEventListener("click", ret.maximize.bind(ret))
+    if (_$(elem)(".close"))
+      _$(elem)(".close").addEventListener("mouseup", ret.close.bind(ret))
+    ret.trayListing = _trayListing(ret)
+    ret.trayListing.toTop()
+    metaOptions.onmake(ret)
+    ret.get = id => _$(".window-layer")(`#win-${ metaOptions.group }-${ id }`)
+    return ret
   }
-  elem.addEventListener("mousedown", ret.toTop.bind(ret))
-  _$(elem)(".wintop").addEventListener("mousedown", md, true)
-  if (_$(elem)(".hide"))
-    _$(elem)(".hide").addEventListener("click", () => elem.classList.add("hidden"))
-  if (_$(elem)(".max"))
-    _$(elem)(".max").addEventListener("click", ret.maximize.bind(ret))
-  if (_$(elem)(".close"))
-    _$(elem)(".close").addEventListener("mouseup", ret.close.bind(ret))
-  
-  ret.trayListing = _trayListing(ret)
-  ret.trayListing.toTop()
-  metaOptions.onmake(ret)
-  ret.get = id => _$(".window-layer")(`#win-${ metaOptions.group }-${ id }`)
-  return ret
 }
 // **TODO**: add ability to define functionality with _windowTemp
 var _windowGeneric = _windowTemp({ group: "generic" })
