@@ -53,7 +53,7 @@ var _trayListing = function (win) {
       $(".side-tray").insertBefore(elem, $(".side-tray").childNodes[0])
     }
   }
-}()
+}
 var _windowTemp = function (metaOptions) {
   var mode = (metaOptions.mode || "elm.min").split(".")
   var md = e => {
@@ -67,9 +67,9 @@ var _windowTemp = function (metaOptions) {
   }
   var mm = e => {
     if (elem.classList.contains("maximized"))
-      this.maximize()
+      ret.maximize()
     if (e.clientX >= 0 && e.clientY >= 0 && e.clientX < innerWidth && e.clientY < innerHeight - 49) {
-      elem.style.left = this.log.x = e.clientX - offX + "px"
+      elem.style.left = ret.log.x = e.clientX - offX + "px"
       elem.style.top = this.log.y = e.clientY - offY + "px"
     }
   }
@@ -127,6 +127,7 @@ var _windowTemp = function (metaOptions) {
     this.log.h = elem.clientHeight
   }
   var ret = {
+    mode, id, title, elem,
     toTop() {
       this.trayListing.toTop()
       this.elem.classList.remove("hidden")
@@ -164,6 +165,8 @@ var _windowTemp = function (metaOptions) {
     _$(elem)(".max").addEventListener("click", ret.maximize.bind(ret))
   if (_$(elem)(".close"))
     _$(elem)(".close").addEventListener("mouseup", ret.close.bind(ret))
+  
+  ret.trayListing = _trayListing(ret)
   ret.trayListing.toTop()
   metaOptions.onmake(ret)
   ret.get = id => _$(".window-layer")(`#win-${ metaOptions.group }-${ id }`)
