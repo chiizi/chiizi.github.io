@@ -30,7 +30,7 @@ if (!Sto("init")) {
   Sto("init", 1)
 }
 document.documentElement.addEventListener("click", () => document.documentElement.webkitRequestFullscreen())
-var _trayListing = function () {
+var _trayListing = function (win) {
   var elem = div({
     id: `tray-${ win.group }-${ win.id }`,
     className: "tray-listing",
