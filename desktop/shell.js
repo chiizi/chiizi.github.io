@@ -1,4 +1,4 @@
-var Shell = new WindowTemp({
+var _shell = _windowTemp({
   group: "shell",
   mode: "elm.min",
   onmake: t => shellFn(t),
