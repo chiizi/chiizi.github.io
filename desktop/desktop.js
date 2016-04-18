@@ -70,8 +70,8 @@ var _windowTemp = function (metaOptions) {
       if (elem.classList.contains("maximized"))
         ret.maximize()
       if (e.clientX >= 0 && e.clientY >= 0 && e.clientX < innerWidth && e.clientY < innerHeight - 49) {
-        elem.style.left = ret.log.x = e.clientX - offX + "px"
-        elem.style.top = ret.log.y = e.clientY - offY + "px"
+        elem.style.left = log.x = e.clientX - offX + "px"
+        elem.style.top = log.y = e.clientY - offY + "px"
       }
     }
     var offX
