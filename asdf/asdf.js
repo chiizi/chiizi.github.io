@@ -28,7 +28,7 @@ const player = {
   speedx: 0,
   maxSpeedx: 512,
   speedy: 0,
-  accelx: 64,
+  accelx: 48,
   accely: 4096,
   gravity: 256,
   boosted: false,
