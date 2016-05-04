@@ -55,7 +55,7 @@ let update = (...o) => o.map(o => {
       o.jremains = false
     }
     
-    o.speedy -= nowize(o.gravity)
+    o.speedy -= o.gravity
   } else {
     o.speedy = 0
     o.boosted = o.jumped = o.jremains = false
