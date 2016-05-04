@@ -50,12 +50,7 @@ const player = {
 let update = (...o) => o.map(o => {
   if (o.inAir()) {
     if (o.jumpWish()) {
-      if (!o.boosted && !o.jremains) {
-        // o.speedx = o.speedx < 0 ? Math.min(-512, o.speedx) : Math.max(512, o.speedx)
-        // o.boosted = true
-      }
-      
-      o.jumpQueued = true
+      if (!o.jremains) o.jumpQueued = true
     } else {
       o.jremains = false
     }
