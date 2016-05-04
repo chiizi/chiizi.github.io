@@ -68,7 +68,7 @@ let update = (...o) => o.map(o => {
       o.jumped = true
       o.jremains = true
     } else {
-      o.speedx = Math.min(Math.max(nowize(o.speedx), nowize(-o.maxSpeedx)), nowize(o.maxSpeedx))
+      o.speedx = Math.min(Math.max(o.speedx, -o.maxSpeedx), o.maxSpeedx)
     }
     if (37 in keysDown) {
       o.speedx -= o.accelx
@@ -80,9 +80,9 @@ let update = (...o) => o.map(o => {
       o.speedx *= 0.5
     }
   }
-  o.y += o.speedy - o.gravity
+  o.y += nowize(o.speedy - o.gravity)
   o.speedy /= 1.2
-  o.x += o.speedx
+  o.x += nowize(o.speedx)
   o.y = Math.max(0, o.y)
   if (o.x < -o.w)
     o.x = canvas.width + o.w
@@ -102,6 +102,7 @@ const main = function() {
   requestAnimationFrame(main)
   
   now = Date.now()
+  
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   update(player)
   render(player)
