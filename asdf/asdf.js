@@ -1,92 +1,106 @@
-/*var toColor = num =>
-  return `rgba(${[(num & 0xFF0000) >>> 16, (num & 0xFF00) >>> 8, num & 0xFF, 255 - ((num & 0xFF000000) >>> 24) / 255].join(", ")})`;*/
+/*let toColor = num =>
+  return `rgba(${[(num & 0xFF0000) >>> 16, (num & 0xFF00) >>> 8, num & 0xFF, 255 - ((num & 0xFF000000) >>> 24) / 255].join(", ")})`*/
 
-var canvas = document.querySelector("#frame");
-canvas.width = innerWidth;
-canvas.height = innerHeight;
+const nowize = (time, now = now, then = then, ms = 1000) =>
+  time / ms * (now - then)
 
-var ctx = canvas.getContext("2d");
+const canvas = document.querySelector("#frame")
+canvas.width = innerWidth
+canvas.height = innerHeight
 
-var keysDown = {};
-addEventListener("keydown", e => keysDown[e.keyCode] = true);
-addEventListener("keyup", e => delete keysDown[e.keyCode]);
+const ctx = canvas.getContext("2d")
 
-var player = {
+const keysDown = {}
+addEventListener("keydown", e => keysDown[e.keyCode] = true)
+addEventListener("keyup", e => delete keysDown[e.keyCode])
+
+const player = {
   x: 0,
   y: 0,
   w: 32,
   h: 32,
   color: "#000",
   speedx: 0,
-  maxSpeedx: 512 / 60,
+  maxSpeedx: 256,
   speedy: 0,
-  accelx: 32 / 60,
-  accely: 4096 / 60,
+  accelx: 32,
+  accely: 4096,
   gravity: 13,
   boosted: false,
-  inAir: function() {return this.y > 0},
-  jump: function() {
-    this.speedy = this.accely;
-    this.jremains = true;
+  inAir() {
+    return this.y > 0
+  },
+  jump() {
+    this.speedy = this.accely
+    this.jremains = true
+  },
+  jumpWish() {
+    return 32 in keysDown
   },
   jumped: false,
   jumpQueued: false,
   jremains: false
-};
+}
 
-var update = (...o) => o.map(o => {
+let update = (...o) => o.map(o => {
   if (o.inAir()) {
-    if (32 in keysDown) {
+    if (o.jumpWish()) {
       if (!o.boosted && !o.jremains) {
-        o.speedx *= 5;
-        o.boosted = true;
+        // o.speedx = o.speedx < 0 ? Math.min(-512, o.speedx) : Math.max(512, o.speedx)
+        // o.boosted = true
       }
       
-      //o.jumpQueued = true;
+      o.jumpQueued = true
     } else {
-      o.jremains = false;
+      o.jremains = false
     }
   } else {
-    o.boosted = o.jumped = o.jremains = false;
+    o.boosted = o.jumped = o.jremains = false
     if (o.jumpQueued || 32 in keysDown) {
-      o.jump();
-      o.jumpQueued = false;
-      o.jumped = true;
-      o.jremains = true;
+      o.jump()
+      o.jumpQueued = false
+      o.jumped = true
+      o.jremains = true
     } else {
-      o.speedx = Math.min(Math.max(o.speedx, -o.maxSpeedx), o.maxSpeedx)
+      o.speedx = Math.min(Math.max(nowize(o.speedx), nowize(-o.maxSpeedx)), nowize(o.maxSpeedx))
     }
     if (37 in keysDown) {
-      o.speedx -= o.accelx;
+      o.speedx -= o.accelx
     } else if (39 in keysDown) {
-      o.speedx += o.accelx;
+      o.speedx += o.accelx
     } else if (32 in keysDown) {
       
     } else {
-      o.speedx /= 1.5;
+      o.speedx *= 0.5
     }
   }
-  o.y += o.speedy - o.gravity;
-  o.speedy /= 1.2;
-  o.x += o.speedx;
-  o.y = Math.max(0, o.y);
+  o.y += o.speedy - o.gravity
+  o.speedy /= 1.2
+  o.x += o.speedx
+  o.y = Math.max(0, o.y)
   if (o.x < -o.w)
-    o.x = canvas.width + o.w;
+    o.x = canvas.width + o.w
   if (o.x > canvas.width + o.w)
-    o.x = -o.w;
-});
+    o.x = -o.w
+})
 
-var render = function(o) {
-  ctx.fillStyle = o.color;
-  ctx.fillRect(o.x, canvas.height - o.y - o.h, o.w, o.h);
-};
+const render = function(o) {
+  ctx.fillStyle = o.color
+  ctx.fillRect(o.x, canvas.height - o.y - o.h, o.w, o.h)
+}
 
-var main = function() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  update(player);
-  render(player);
+let then, now
+now = then = Date.now()
+
+const main = function() {
+  requestAnimationFrame(main)
   
-  requestAnimationFrame(main);
-};
+  now = Date.now()
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  update(player)
+  render(player)
+  
+  then = now
+}
 
-main();
+main()
