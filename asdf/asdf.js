@@ -58,13 +58,14 @@ let update = (...o) => o.map(o => {
     o.speedy -= o.gravity
   } else {
     o.speedy = 0
-    o.boosted = o.jumped = o.jremains = false
+    o.boosted = o.jumped = false
     if (o.jumpQueued || 32 in keysDown && !o.jremains) {
       o.jump()
       o.jumpQueued = false
       o.jumped = true
       o.jremains = true
     } else {
+      o.jremains = false
       o.speedx = Math.min(Math.max(o.speedx, -o.maxSpeedx), o.maxSpeedx)
     }
     if (37 in keysDown) {
