@@ -85,13 +85,15 @@ let update = (...o) => o.map(o => {
     o.x = canvas.width + o.w
   if (o.x > canvas.width + o.w)
     o.x = -o.w
+  
+  o.speedx = ~~o.speedx
 })
 
 const render = function(o, debug) {
   ctx.fillStyle = o.color
   ctx.fillRect(o.x, canvas.height - o.y - o.h, o.w, o.h)
   if (debug) {
-    ctx.fillText(o.speedx, 5, 5)
+    ctx.fillText(o.speedx, 5, 10)
   }
 }
 
