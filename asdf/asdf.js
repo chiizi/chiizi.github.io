@@ -31,7 +31,7 @@ const player = {
   speedy: 0,
   accelx: 32,
   accely: 4096,
-  gravity: 100,
+  gravity: 256,
   boosted: false,
   inAir() {
     return this.y > 0
@@ -55,12 +55,15 @@ let update = (...o) => o.map(o => {
         // o.speedx = o.speedx < 0 ? Math.min(-512, o.speedx) : Math.max(512, o.speedx)
         // o.boosted = true
       }
-      
+      o.speedy -= nowize(gravity)
       o.jumpQueued = true
     } else {
       o.jremains = false
     }
+    
+    o.speedy -= o.
   } else {
+    o.speedy = 0
     o.boosted = o.jumped = o.jremains = false
     if (o.jumpQueued || 32 in keysDown) {
       o.jump()
@@ -80,7 +83,7 @@ let update = (...o) => o.map(o => {
       o.speedx *= 0.5
     }
   }
-  o.y += nowize(o.speedy - o.gravity)
+  o.y += nowize(o.speedy)
   o.speedy /= 1.2
   o.x += nowize(o.speedx)
   o.y = Math.max(0, o.y)
