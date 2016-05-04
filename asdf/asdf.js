@@ -30,7 +30,7 @@ const player = {
   speedy: 0,
   accelx: 48,
   accely: 4096,
-  gravity: 256,
+  gravity: 128,
   boosted: false,
   inAir() {
     return this.y > 0
