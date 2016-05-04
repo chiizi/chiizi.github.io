@@ -91,7 +91,7 @@ const render = function(o, debug) {
   ctx.fillStyle = o.color
   ctx.fillRect(o.x, canvas.height - o.y - o.h, o.w, o.h)
   if (debug) {
-    ctx.fillText(5, 5, o.speedx)
+    ctx.fillText(o.speedx, 5, 5)
   }
 }
 
