@@ -1,5 +1,11 @@
-/*let toColor = num =>
+/*const toColor = num =>
   return `rgba(${[(num & 0xFF0000) >>> 16, (num & 0xFF00) >>> 8, num & 0xFF, 255 - ((num & 0xFF000000) >>> 24) / 255].join(", ")})`*/
+
+const onerror = function(e, u, l) {
+  alert(`error: ${e}
+URL: ${u}
+line: ${l}`)
+}
 
 const nowize = (time, now = now, then = then, ms = 1000) =>
   time / ms * (now - then)
