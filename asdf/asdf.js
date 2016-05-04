@@ -1,11 +1,9 @@
 /*const toColor = num =>
   return `rgba(${[(num & 0xFF0000) >>> 16, (num & 0xFF00) >>> 8, num & 0xFF, 255 - ((num & 0xFF000000) >>> 24) / 255].join(", ")})`*/
-let errored = false
 window.onerror = function(e, u, l) {
-  !errored ? alert(`error: ${e}
+  alert(`error: ${e}
 URL: ${u}
-line: ${l}`) : null
-  errored = true
+line: ${l}`)
 }
 
 const nowize = (time) =>
