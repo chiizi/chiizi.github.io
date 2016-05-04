@@ -94,6 +94,7 @@ const render = function(o, debug) {
   ctx.fillRect(o.x, canvas.height - o.y - o.h, o.w, o.h)
   if (debug) {
     ctx.fillText(o.speedx, 5, 10)
+    ctx.fillText(o.speedy, 5, 30)
   }
 }
 
