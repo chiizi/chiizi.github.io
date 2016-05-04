@@ -87,6 +87,7 @@ let update = (...o) => o.map(o => {
     o.x = -o.w
   
   o.speedx = ~~o.speedx
+  o.speedy = ~~o.speedy
 })
 
 const render = function(o, debug) {
