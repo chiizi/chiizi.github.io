@@ -7,7 +7,7 @@ URL: ${u}
 line: ${l}`)
 }
 
-const nowize = (time, now = now, then = then, ms = 1000) =>
+const nowize = (time, now, then, ms = 1000) =>
   time / ms * (now - then)
 
 const canvas = document.querySelector("#frame")
