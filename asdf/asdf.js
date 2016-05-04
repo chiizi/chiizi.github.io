@@ -59,7 +59,7 @@ let update = (...o) => o.map(o => {
   } else {
     o.speedy = 0
     o.boosted = o.jumped = o.jremains = false
-    if (o.jumpQueued || 32 in keysDown) {
+    if (o.jumpQueued || 32 in keysDown && !o.jremains) {
       o.jump()
       o.jumpQueued = false
       o.jumped = true
