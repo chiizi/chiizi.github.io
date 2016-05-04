@@ -55,13 +55,13 @@ let update = (...o) => o.map(o => {
         // o.speedx = o.speedx < 0 ? Math.min(-512, o.speedx) : Math.max(512, o.speedx)
         // o.boosted = true
       }
-      o.speedy -= nowize(gravity)
+      
       o.jumpQueued = true
     } else {
       o.jremains = false
     }
     
-    o.speedy -= o.
+    o.speedy -= nowize(gravity)
   } else {
     o.speedy = 0
     o.boosted = o.jumped = o.jremains = false
