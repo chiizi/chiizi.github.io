@@ -7,8 +7,8 @@ URL: ${u}
 line: ${l}`)
 }
 
-const nowize = (time, now, then, ms = 1000) =>
-  time / ms * (now - then)
+const nowize = (time) =>
+  time / 1000 * (now - then)
 
 const canvas = document.querySelector("#frame")
 canvas.width = innerWidth
