@@ -87,9 +87,12 @@ let update = (...o) => o.map(o => {
     o.x = -o.w
 })
 
-const render = function(o) {
+const render = function(o, debug) {
   ctx.fillStyle = o.color
   ctx.fillRect(o.x, canvas.height - o.y - o.h, o.w, o.h)
+  if (debug) {
+    ctx.fillText(5, 5, o.speedx)
+  }
 }
 
 let then, now
@@ -102,7 +105,7 @@ const main = function() {
   
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   update(player)
-  render(player)
+  render(player, true)
   
   then = now
 }
