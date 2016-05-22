@@ -1,12 +1,12 @@
 <style>
 @import url("https://fonts.googleapis.com/css?family=Roboto:100");
 .wrap {
-  width: 15vw;
-  height: 20vw;
+  width: 100vw;
+  height: 100vh;
 }
 .wrap .card {
-  width: 15vw;
-  height: 20vw;
+  width: 100vw;
+  height: 100vh;
   position: absolute;
   transform-style: preserve-3d;
   transition: transform 0.8s cubic-bezier(0.15, 0.85, 0.25, 1.25);
@@ -16,8 +16,8 @@
 }
 .wrap .card div {
   position: absolute;
-  width: 15vw;
-  height: 20vw;
+  width: 100vw;
+  height: 100vh;
   backface-visibility: hidden;
   border-radius: 2px;
   font: 100 1em Roboto;
@@ -35,15 +35,17 @@
   height: 5vw;
   border-radius: 2.5vw;
   position: absolute;
-  top: 2.5vw;
-  left: 5vw;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .wrap .card .front .about {
-  width: 13vw;
-  height: 5vw;
+  width: 95vw;
+  height: calc(90vh - 60px);
   position: absolute;
-  top: 8.5vw;
-  left: 1vw;
+  top: calc(5vw + 50px);
+  left: 50%;
+  transform: translateX(-50%);
 }
 .wrap .card .front .about * {
   margin: 3px;
@@ -54,11 +56,10 @@
   transform: rotateY(180deg);
 }
 .wrap .card .back .about {
-  width: 13vw;
-  height: 5vw;
+  width: 94vw;
   position: absolute;
-  top: 7.5vw;
-  left: 1vw;
+  top: 40vh;
+  left: 3vw;
 }
 .wrap .card .back .about * {
   margin: 3px;
