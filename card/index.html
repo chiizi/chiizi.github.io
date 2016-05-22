@@ -1,1 +1,104 @@
+<style>
+@import url("https://fonts.googleapis.com/css?family=Roboto:100");
+.wrap {
+  width: 15vw;
+  height: 20vw;
+}
+.wrap .card {
+  width: 15vw;
+  height: 20vw;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.15, 0.85, 0.25, 1.25);
+  border-radius: 2px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  cursor: pointer;
+}
+.wrap .card div {
+  position: absolute;
+  width: 15vw;
+  height: 20vw;
+  backface-visibility: hidden;
+  border-radius: 2px;
+  font: 100 1em Roboto;
+  color: #455;
+}
+.wrap .card div h1 {
+  text-align: center;
+}
+.wrap .card .front {
+  background: #ddd;
+  color: #999;
+}
+.wrap .card .front .image {
+  width: 5vw;
+  height: 5vw;
+  border-radius: 2.5vw;
+  position: absolute;
+  top: 2.5vw;
+  left: 5vw;
+}
+.wrap .card .front .about {
+  width: 13vw;
+  height: 5vw;
+  position: absolute;
+  top: 8.5vw;
+  left: 1vw;
+}
+.wrap .card .front .about * {
+  margin: 3px;
+}
+.wrap .card .back {
+  background: #222;
+  color: #555;
+  transform: rotateY(180deg);
+}
+.wrap .card .back .about {
+  width: 13vw;
+  height: 5vw;
+  position: absolute;
+  top: 7.5vw;
+  left: 1vw;
+}
+.wrap .card .back .about * {
+  margin: 3px;
+}
+.wrap:hover .card {
+  transform: rotateY(180deg);
+}
 
+</style>
+
+<div class="wrap">
+  <div class="card">
+    <div class="front">
+      <img class="image" src="https://lh6.googleusercontent.com/-pwBRObt-Urs/AAAAAAAAAAI/AAAAAAAAAAA/ADhl2yrdRWdaFyoUKS-5v74T_duya94zng/mo/photo.png?sz=120" />
+      <div class="about">
+        <h1>
+          Goggles
+        </h1>
+        <ul>
+          <li>
+            I make crappy videos
+          </li>
+          <li>
+            I code stuff (badly)
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="back">
+      <div class="about">
+        <h1>
+          Back
+        </h1>
+        <h3>
+          (nothing to see here)
+        </h3>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+document.body.style.background = location.search.length ? location.search.substring(1) : "transparent"
+</script>
