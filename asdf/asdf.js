@@ -49,8 +49,9 @@ const player = {
 
 let update = (...o) => o.map(o => {
   if (o.inAir()) {
+    o.jumpQueued = Math.max(o.jumpQueued - 1, 0)
     if (o.jumpWish()) {
-      if (!o.jremains) o.jumpQueued = true
+      if (!o.jremains) o.jumpQueued = 30
     } else {
       o.jremains = false
     }
@@ -61,7 +62,6 @@ let update = (...o) => o.map(o => {
     o.boosted = o.jumped = false
     if (o.jumpQueued || 32 in keysDown && !o.jremains) {
       o.jump()
-      o.jumpQueued = false
       o.jumped = true
       o.jremains = true
     } else {
@@ -77,6 +77,7 @@ let update = (...o) => o.map(o => {
     } else {
       o.speedx *= 0.5
     }
+    o.jumpQueued = 0
   }
   o.y += nowize(o.speedy)
   o.speedy /= 1.2
