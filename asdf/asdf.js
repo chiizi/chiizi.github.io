@@ -6,6 +6,8 @@ URL: ${u}
 line: ${l}`)
 }
 
+const JQ_MAX = 10
+
 const nowize = (time) =>
   time / 1000 * (now - then)
 
@@ -51,7 +53,7 @@ let update = (...o) => o.map(o => {
   if (o.inAir()) {
     o.jumpQueued = Math.max(o.jumpQueued - 1, 0)
     if (o.jumpWish()) {
-      if (!o.jremains) o.jumpQueued = 30
+      if (!o.jremains) o.jumpQueued = JQ_MAX
     } else {
       o.jremains = false
     }
